@@ -3,7 +3,7 @@
 	<!-- Configure path to GWT SDK -->
 	<property name="gwt.sdk" location="/opt/gwt-sdk/gwt-2.1.1" />
 	<!-- Configure path to App Engine SDK -->
-	<property name="appengine.sdk" location="/opt/appengine-sdk/1.4.0" />
+	<property name="appengine_sdk" location="/opt/appengine-sdk/1.4.0" />
 
 
 	<path id="project.class.path">
@@ -16,8 +16,8 @@
 
 	<path id="tools.class.path">
 		<path refid="project.class.path" />
-		<pathelement location="${appengine.sdk}/lib/appengine-tools-api.jar" />
-		<fileset dir="${appengine.sdk}/lib/tools">
+		<pathelement location="${appengine_sdk}/lib/appengine-tools-api.jar" />
+		<fileset dir="${appengine_sdk}/lib/tools">
 			<include name="**/asm-*.jar" />
 			<include name="**/datanucleus-enhancer-*.jar" />
 		</fileset>
@@ -29,7 +29,7 @@
 		<copy todir="war/WEB-INF/lib" file="${gwt.sdk}/gwt-servlet.jar" />
 		<!-- Add any additional server libs that need to be copied -->
 		<copy todir="war/WEB-INF/lib" flatten="true">
-			<fileset dir="${appengine.sdk}/lib/user" includes="**/*.jar" />
+			<fileset dir="${appengine_sdk}/lib/user" includes="**/*.jar" />
 		</copy>
 
 	</target>
@@ -69,7 +69,7 @@
 				<path refid="tools.class.path" />
 			</classpath>
 			<jvmarg value="-Xmx256M" />
-			<jvmarg value="-javaagent:${appengine.sdk}/lib/agent/appengine-agent.jar"/>
+			<jvmarg value="-javaagent:${appengine_sdk}/lib/agent/appengine-agent.jar"/>
 			<arg value="-startupUrl" />
 			<arg value="Blog.html" />
 			<!-- Additional arguments like -style PRETTY or -logLevel DEBUG -->
