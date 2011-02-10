@@ -57,7 +57,7 @@
 			<!-- add jvmarg -Xss16M or similar if you see a StackOverflowError -->
 			<jvmarg value="-Xmx256M" />
 			<!-- Additional arguments like -style PRETTY or -logLevel DEBUG -->
-			<arg value="de.threedimensions.blog.client.Blog" />
+			<arg value="de.threedimensions.blog.Blog" />
 		</java>
 	</target>
 
@@ -69,12 +69,13 @@
 				<path refid="tools.class.path" />
 			</classpath>
 			<jvmarg value="-Xmx256M" />
+			<jvmarg value="-javaagent:${appengine.sdk}/lib/agent/appengine-agent.jar"/>
 			<arg value="-startupUrl" />
 			<arg value="Blog.html" />
 			<!-- Additional arguments like -style PRETTY or -logLevel DEBUG -->
 			<arg value="-server" />
 			<arg value="com.google.appengine.tools.development.gwt.AppEngineLauncher" />
-			<arg value="de.threedimensions.blog.client.Blog" />
+			<arg value="de.threedimensions.blog.Blog" />
 		</java>
 	</target>
 
