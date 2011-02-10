@@ -145,6 +145,7 @@
 
 	<target name="clean" description="Cleans this project">
 		<delete dir="war/WEB-INF/classes" failonerror="false" />
+		<delete dir="war/WEB-INF/lib" failonerror="false" />
 		<delete dir="war/blog" failonerror="false" />
 	</target>
 
