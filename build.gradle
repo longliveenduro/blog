@@ -1,7 +1,25 @@
 ant.importBuild 'build.xml'
 
-
 task appengineDeploy << {
 	def process = "${ant.appengine_sdk}/bin/appcfg.sh update war".execute()
 	process.in.eachLine { line -> println line }
+}
+
+libs << {
+	copy {
+	  from configurations.compile
+	  into "war/WEB-INF/lib"
+	}
+      }
+
+configurations {
+	compile
+}
+
+dependencies {
+	compile "org.springframework:spring-webmvc:3.0.5.RELEASE"
+}
+
+repositories {
+    mavenCentral()
 }
