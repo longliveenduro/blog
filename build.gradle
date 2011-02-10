@@ -10,7 +10,7 @@ libs << {
 	  from configurations.compile
 	  into "war/WEB-INF/lib"
 	}
-      }
+}
 
 configurations {
 	compile
