@@ -1,18 +1,21 @@
 package de.threedimensions.blog.server;
 
+import java.util.Date;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import de.threedimensions.blog.shared.BlogEntry;
+
 @Controller
 @RequestMapping("/*")
-public class HelloController {
+public class BlogController {
 
-    @RequestMapping(value = "/hello", method = RequestMethod.GET)
+    @RequestMapping(value = "/post", method = RequestMethod.GET)
     public @ResponseBody
-    String writeString() {
-	return "Congratulations..spring is running !";
+    BlogEntry getBlogEntry() {
+	return new BlogEntry("Blog Entry from Server", "Blog content from server", new Date());
     }
-
 }

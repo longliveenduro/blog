@@ -8,4 +8,6 @@
 	xmlns:mvc="http://www.springframework.org/schema/mvc">
 
 	<context:component-scan base-package="de.threedimensions.blog" />
+	<mvc:annotation-driven/>
+	
 </beans>
