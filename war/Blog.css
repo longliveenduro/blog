@@ -22,6 +22,10 @@ h1 {
   font-size: 16pt;
 }
 
+.errorFeedback {
+	color: red;
+}
+
 /** Most GWT widgets already have a style name defined */
 .gwt-TextArea {
 	width: 400px;

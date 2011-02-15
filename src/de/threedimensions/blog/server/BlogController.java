@@ -21,14 +21,17 @@ public class BlogController {
     public @ResponseBody
     List<BlogEntryRef> getBlogEntries() {
 	List<BlogEntryRef> blogEntryRefs = new ArrayList<BlogEntryRef>();
-	blogEntryRefs.add(new BlogEntryRef(1l, "/posts/1"));
-	blogEntryRefs.add(new BlogEntryRef(2l, "/posts/2"));
+	blogEntryRefs.add(new BlogEntryRef(1l, "posts/1"));
+	blogEntryRefs.add(new BlogEntryRef(2l, "posts/2"));
 	return blogEntryRefs;
     }
 
     @RequestMapping(value = "/posts/{postId}", method = RequestMethod.GET)
     public @ResponseBody
     BlogEntry getBlogEntry(@PathVariable Long postId) {
-	return new BlogEntry("Blog Entry from Server with id " + postId, "Blog content from server", new Date());
+	BlogEntry blogEntry = new BlogEntry("Blog Entry from Server with id " + postId, "Blog content from server",
+		new Date());
+	blogEntry.setId(postId);
+	return blogEntry;
     }
 }

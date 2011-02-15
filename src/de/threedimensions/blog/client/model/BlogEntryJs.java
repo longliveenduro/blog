@@ -13,7 +13,7 @@ public class BlogEntryJs extends JavaScriptObject {
     protected BlogEntryJs() {
     }
 
-    public final native Long getId() /*-{ return this.id; }-*/;
+    public final native int getId() /*-{ return this.id; }-*/;
 
     public final native String getHeading() /*-{ return this.heading; }-*/;
 
