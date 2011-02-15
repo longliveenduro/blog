@@ -1,6 +1,7 @@
 package de.threedimensions.blog.client;
 
 import com.google.gwt.core.client.EntryPoint;
+import com.google.gwt.core.client.JsArray;
 import com.google.gwt.event.dom.client.BlurEvent;
 import com.google.gwt.event.dom.client.BlurHandler;
 import com.google.gwt.event.dom.client.ClickEvent;
@@ -17,6 +18,7 @@ import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.Widget;
 
 import de.threedimensions.blog.client.model.BlogEntryJs;
+import de.threedimensions.blog.client.model.BlogEntryRefJs;
 
 /**
  * Entry point classes define <code>onModuleLoad()</code>.
@@ -24,6 +26,7 @@ import de.threedimensions.blog.client.model.BlogEntryJs;
 public class Blog implements EntryPoint, AsyncRestCallbackHandler {
 
     private VerticalPanel contentMiddlePanel;
+    private BlogRestClient blogRestClient = new BlogRestClient();
 
     /**
      * Entry point method.
@@ -42,15 +45,7 @@ public class Blog implements EntryPoint, AsyncRestCallbackHandler {
 
 	RootPanel.get("blogPanel").add(mainPanel);
 
-	fetchCurrentBlogEntry();
-    }
-
-    /**
-     * @return
-     */
-    private void fetchCurrentBlogEntry() {
-	BlogRestClient blogRestClient = new BlogRestClient();
-	blogRestClient.getCurrentBlogEntry(this);
+	blogRestClient.getPosts(this);
     }
 
     private VerticalPanel createNavPanel() {
@@ -88,26 +83,20 @@ public class Blog implements EntryPoint, AsyncRestCallbackHandler {
 	return commentPanel;
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see
-     * de.threedimensions.blog.client.AsyncRestCallbackHandler#blogEntryReceived
-     * (de.threedimensions.blog.client.model.BlogEntryJs)
-     */
     @Override
     public void blogEntryReceived(BlogEntryJs blogEntryJs) {
 	Widget widget = new HTML("<h2>" + blogEntryJs.getHeading() + "</h2>" + blogEntryJs.getContent());
 	contentMiddlePanel.add(widget);
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see
-     * de.threedimensions.blog.client.AsyncRestCallbackHandler#handleError(java
-     * .lang.String)
-     */
+    @Override
+    public void listOfBlogEntriesReceived(JsArray<BlogEntryRefJs> blogEntryRefJsArray) {
+	for (int i = 0; i < blogEntryRefJsArray.length(); i++) {
+	    BlogEntryRefJs blogEntryRefJs = blogEntryRefJsArray.get(i);
+	    blogRestClient.getBlogEntry(blogEntryRefJs.getUrl(), this);
+	}
+    }
+
     @Override
     public void handleError(String errorMessage) {
 	// TODO Auto-generated method stub

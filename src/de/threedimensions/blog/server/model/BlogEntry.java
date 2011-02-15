@@ -7,6 +7,7 @@ import java.util.Date;
  * 
  */
 public class BlogEntry {
+    private long id;
     private String heading;
     private String content;
     private Date creationTime;
@@ -66,6 +67,21 @@ public class BlogEntry {
      */
     public void setCreationTime(Date creationTime) {
 	this.creationTime = creationTime;
+    }
+
+    /**
+     * @return the id
+     */
+    public long getId() {
+	return id;
+    }
+
+    /**
+     * @param id
+     *            the id to set
+     */
+    public void setId(long id) {
+	this.id = id;
     }
 
 }
