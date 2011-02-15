@@ -1,7 +1,5 @@
 package de.threedimensions.blog.client;
 
-import java.util.Date;
-
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.event.dom.client.BlurEvent;
 import com.google.gwt.event.dom.client.BlurHandler;
@@ -18,12 +16,14 @@ import com.google.gwt.user.client.ui.TextArea;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.Widget;
 
-import de.threedimensions.blog.shared.BlogEntry;
+import de.threedimensions.blog.client.model.BlogEntryJs;
 
 /**
  * Entry point classes define <code>onModuleLoad()</code>.
  */
-public class Blog implements EntryPoint {
+public class Blog implements EntryPoint, AsyncRestCallbackHandler {
+
+    private VerticalPanel contentMiddlePanel;
 
     /**
      * Entry point method.
@@ -31,8 +31,7 @@ public class Blog implements EntryPoint {
     public void onModuleLoad() {
 	HorizontalPanel mainPanel = new HorizontalPanel();
 
-	VerticalPanel contentMiddlePanel = new VerticalPanel();
-	contentMiddlePanel.add(getCurrentBlogEntry());
+	contentMiddlePanel = new VerticalPanel();
 	mainPanel.add(contentMiddlePanel);
 
 	HorizontalPanel commentPanel = createCommentPanel();
@@ -42,17 +41,16 @@ public class Blog implements EntryPoint {
 	mainPanel.add(navPanel);
 
 	RootPanel.get("blogPanel").add(mainPanel);
+
+	fetchCurrentBlogEntry();
     }
 
     /**
      * @return
      */
-    private Widget getCurrentBlogEntry() {
-	BlogEntry blogEntry = new BlogEntry(
-		"Heading 1",
-		"Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.",
-		new Date());
-	return new HTML("<h2>" + blogEntry.getHeading() + "</h2>" + blogEntry.getContent());
+    private void fetchCurrentBlogEntry() {
+	BlogRestClient blogRestClient = new BlogRestClient();
+	blogRestClient.getCurrentBlogEntry(this);
     }
 
     private VerticalPanel createNavPanel() {
@@ -88,5 +86,31 @@ public class Blog implements EntryPoint {
 	});
 	commentPanel.add(commentButton);
 	return commentPanel;
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see
+     * de.threedimensions.blog.client.AsyncRestCallbackHandler#blogEntryReceived
+     * (de.threedimensions.blog.client.model.BlogEntryJs)
+     */
+    @Override
+    public void blogEntryReceived(BlogEntryJs blogEntryJs) {
+	Widget widget = new HTML("<h2>" + blogEntryJs.getHeading() + "</h2>" + blogEntryJs.getContent());
+	contentMiddlePanel.add(widget);
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see
+     * de.threedimensions.blog.client.AsyncRestCallbackHandler#handleError(java
+     * .lang.String)
+     */
+    @Override
+    public void handleError(String errorMessage) {
+	// TODO Auto-generated method stub
+
     }
 }

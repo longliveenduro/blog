@@ -1,4 +1,4 @@
-package de.threedimensions.blog.shared;
+package de.threedimensions.blog.server.model;
 
 import java.util.Date;
 
