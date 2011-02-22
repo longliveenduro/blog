@@ -18,5 +18,6 @@
 	<classpathentry kind="lib" path="war/WEB-INF/lib/commons-logging-1.1.1.jar"/>
 	<classpathentry kind="lib" path="war/WEB-INF/lib/jackson-core-lgpl-1.6.5.jar"/>
 	<classpathentry kind="lib" path="war/WEB-INF/lib/jackson-mapper-lgpl-1.6.5.jar"/>
+	<classpathentry kind="lib" path="war/WEB-INF/lib/openid4java-0.9.6-SNAPSHOT.jar"/>
 	<classpathentry kind="output" path="war/WEB-INF/classes"/>
 </classpath>
