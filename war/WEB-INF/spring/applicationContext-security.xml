@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans:beans xmlns="http://www.springframework.org/schema/security"
+	xmlns:beans="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+                        http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-3.0.xsd">
+
+	<!-- Can't add the <openid-login>-tag, as it's default filter violates app 
+		engine's whitelist -->
+	<http auto-config="true" use-expressions="true">
+		<custom-filter position="OPENID_FILTER" ref="myOpenIDAuthenticationFilter" />
+	</http>
+
+	<!-- Start configuration of OpenId-filter -->
+	<beans:bean id="myOpenIDAuthenticationFilter"
+		class="org.springframework.security.openid.OpenIDAuthenticationFilter">
+		<beans:property name="authenticationManager" ref="authenticationManager" />
+		<beans:property name="consumer" ref="myOpenID4JavaConsumer"></beans:property>
+	</beans:bean>
+
+	<beans:bean id="myOpenID4JavaConsumer"
+		class="org.springframework.security.openid.OpenID4JavaConsumer">
+		<beans:constructor-arg index="0" ref="myConsumerManager"></beans:constructor-arg>
+		<beans:constructor-arg index="1">
+			<beans:list value-type="org.springframework.security.openid.OpenIDAttribute">
+				<beans:bean class="org.springframework.security.openid.OpenIDAttribute">
+					<beans:constructor-arg index="0" value="email" />
+					<beans:constructor-arg index="1"
+						value="http://axschema.org/contact/email" />
+					<beans:property name="required" value="true" />
+				</beans:bean>
+			</beans:list>
+		</beans:constructor-arg>
+	</beans:bean>
+	
+	<beans:bean id="myConsumerManager" class="org.openid4java.consumer.ConsumerManager">
+		<beans:constructor-arg index="0"
+			ref="myRealmVerifierFactory"></beans:constructor-arg>
+		<beans:constructor-arg index="1" ref="myDiscovery"></beans:constructor-arg>
+		<beans:constructor-arg index="2"
+			ref="myHttpFetcherFactory"></beans:constructor-arg>
+	</beans:bean>
+
+	<beans:bean id="myRealmVerifierFactory" class="org.openid4java.server.RealmVerifierFactory">
+		<beans:constructor-arg index="0" ref="myYadisResolver"></beans:constructor-arg>
+	</beans:bean>
+
+	<beans:bean id="myYadisResolver"
+		class="org.openid4java.discovery.yadis.YadisResolver">
+		<beans:constructor-arg index="0"
+			ref="myHttpFetcherFactory"></beans:constructor-arg>
+	</beans:bean>
+
+	<beans:bean id="myHttpFetcherFactory" class="org.openid4java.util.HttpFetcherFactory">
+		<beans:constructor-arg index="0" ref="myProvider"></beans:constructor-arg>
+	</beans:bean>
+
+	<beans:bean id="myProvider"
+		class="de.threedimensions.blog.server.openid.MyHttpCacheProvider"></beans:bean>
+
+	<beans:bean id="myDiscovery" class="org.openid4java.discovery.Discovery">
+		<beans:constructor-arg index="0" ref="myHtmlResolver"></beans:constructor-arg>
+		<beans:constructor-arg index="1" ref="myYadisResolver"></beans:constructor-arg>
+		<beans:constructor-arg index="2" ref="myXriResolver"></beans:constructor-arg>
+	</beans:bean>
+
+	<beans:bean id="myHtmlResolver" class="org.openid4java.discovery.html.HtmlResolver">
+		<beans:constructor-arg index="0"
+			ref="myHttpFetcherFactory"></beans:constructor-arg>
+	</beans:bean>
+
+	<beans:bean id="myXriResolver"
+		class="org.openid4java.discovery.xri.XriDotNetProxyResolver">
+		<beans:constructor-arg index="0"
+			ref="myHttpFetcherFactory"></beans:constructor-arg>
+	</beans:bean>
+	<!-- End configuration of OpenId-filter -->
+
+	<!-- Configure Authentication mechanism -->
+	<authentication-manager alias="authenticationManager">
+		<!-- SHA-256 values can be produced using 'echo -n your_desired_password 
+			| sha256sum' (using normal *nix environments) -->
+		<authentication-provider>
+			<password-encoder hash="sha-256" />
+			<user-service>
+				<user name="admin"
+					password="8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918"
+					authorities="ROLE_ADMIN" />
+				<user name="user"
+					password="04f8996da763b7a969b1028ee3007569eaf3a635486ddab211d512c85b9df8fb"
+					authorities="ROLE_USER" />
+			</user-service>
+		</authentication-provider>
+		<authentication-provider ref="myOpenIDAuthenticationProvider" />
+	</authentication-manager>
+
+	<beans:bean id="myOpenIDAuthenticationProvider"
+		class="org.springframework.security.openid.OpenIDAuthenticationProvider">
+		<beans:property name="userDetailsService" ref="myOpenIdUserDetailsService"></beans:property>
+	</beans:bean>
+
+	<beans:bean id="myOpenIdUserDetailsService"
+		class="de.threedimensions.blog.server.openid.OpenIdUserDetailsServiceImpl"></beans:bean>
+
+
+</beans:beans>
