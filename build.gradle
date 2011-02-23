@@ -23,10 +23,10 @@ configurations {
 
 dependencies {
 	compile "org.springframework:spring-webmvc:3.0.5.RELEASE"
-//	compile "org.springframework.security:spring-security-core:3.1.0.RC1"
-//	compile ("org.springframework.security:spring-security-openid:3.1.0.RC1") {exclude module: 'openid4java-nodeps' }
-//	compile "com.google.guava:guava:r08"
-//	compile "com.google.inject:guice:2.0"
+	compile "org.springframework.security:spring-security-core:3.1.0.RC1"
+	compile ("org.springframework.security:spring-security-openid:3.1.0.RC1") { exclude module: 'openid4java-nodeps' }
+	compile "com.google.guava:guava:r08"
+	compile "com.google.inject:guice:2.0"
 	
 	compile ('org.openid4java:openid4java:0.9.6-SNAPSHOT') {
 		artifact {
@@ -43,5 +43,5 @@ dependencies {
 
 repositories {
     mavenCentral()
-    mavenRepo urls: ["http://maven.springframework.org/milestone/", "http://oss.sonatype.org/content/repositories/openid4java-snapshots/"] 
+    mavenRepo urls: "http://maven.springframework.org/milestone"
 }
