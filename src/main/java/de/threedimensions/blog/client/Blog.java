@@ -2,6 +2,7 @@ package de.threedimensions.blog.client;
 
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.core.client.JsArray;
+import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Hyperlink;
@@ -56,5 +57,10 @@ public class Blog implements EntryPoint, AsyncRestCallbackHandler {
     @Override
     public void handleError(String errorMessage) {
 	feedbackLabel.setText(errorMessage);
+    }
+
+    @Override
+    public void openIdLoginUrlReceived(String text) {
+	Window.open(text, "openid_popup", "width=450,height=500,location=1,status=1,resizable=yes");
     }
 }

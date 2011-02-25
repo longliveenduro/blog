@@ -26,4 +26,9 @@ public interface AsyncRestCallbackHandler {
      */
     void listOfBlogEntriesReceived(JsArray<BlogEntryRefJs> blogEntryRefJs);
 
+    /**
+     * @param text
+     */
+    void openIdLoginUrlReceived(String text);
+
 }

@@ -20,6 +20,7 @@ public class BlogRestClient {
 
     private static final String REST_BASE_URL = GWT.getHostPageBaseURL() + "app/";
     private static final String POSTS_URL = REST_BASE_URL + "posts";
+    private static final String AUTH_URL = REST_BASE_URL + "auth";
 
     public void getPosts(final AsyncRestCallbackHandler asyncRestCallbackHandler) {
 	RequestBuilder requestBuilder = new RequestBuilder(RequestBuilder.GET, POSTS_URL);
@@ -61,8 +62,9 @@ public class BlogRestClient {
 			BlogEntryJs blogEntryJs = buildBlogEntryJs(response.getText());
 			asyncRestCallbackHandler.blogEntryReceived(blogEntryJs);
 		    } else {
-			asyncRestCallbackHandler.handleError("Couldn't access Rest service, http status code "
-				+ response.getStatusCode());
+			asyncRestCallbackHandler
+				.handleError("Couldn't access Rest service for getting blog entry, http status code "
+					+ response.getStatusCode());
 		    }
 		}
 
@@ -75,6 +77,31 @@ public class BlogRestClient {
 	} catch (RequestException e) {
 	    asyncRestCallbackHandler.handleError("Couldn't access Rest service for retrieval of post with id "
 		    + urlForPost + ": " + e.getMessage());
+	}
+    }
+
+    public void geOpenIdLoginUrl(final AsyncRestCallbackHandler asyncRestCallbackHandler) {
+	RequestBuilder requestBuilder = new RequestBuilder(RequestBuilder.GET, AUTH_URL);
+	try {
+	    requestBuilder.sendRequest("", new RequestCallback() {
+		@Override
+		public void onResponseReceived(Request request, Response response) {
+		    if (response.getStatusCode() == 200) {
+			asyncRestCallbackHandler.openIdLoginUrlReceived(response.getText());
+		    } else {
+			asyncRestCallbackHandler.handleError("Couldn't get url for open id login, status code "
+				+ response.getStatusCode());
+		    }
+		}
+
+		@Override
+		public void onError(Request request, Throwable exception) {
+		    asyncRestCallbackHandler.handleError("Couldn't get url for open id login: "
+			    + exception.getMessage());
+		}
+	    });
+	} catch (RequestException e) {
+	    asyncRestCallbackHandler.handleError("Couldn't get url for open id login: " + e.getMessage());
 	}
     }
 
