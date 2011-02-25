@@ -1,6 +1,7 @@
 war/WEB-INF/lib/
 war/WEB-INF/classes/
 war/WEB-INF/deploy/
+test-classes/
 war/blog/
 .gradle
 Blog.war
