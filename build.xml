@@ -134,7 +134,7 @@
 		</junit>
 	</target>
 
-	<target name="${java-testsrcdir}" description="Run development and production mode tests">
+	<target name="test" description="Run development and production mode tests">
 		<antcall target="test.dev" />
 		<antcall target="test.prod" />
 	</target>

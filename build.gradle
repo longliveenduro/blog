@@ -1,6 +1,6 @@
 ant.importBuild 'build.xml'
 
-task appengineDeploy << {
+task appengineDeploy(dependsOn: war) << {
 	def process = "${ant.appengine_sdk}/bin/appcfg.sh update war".execute()
 	process.in.eachLine { line -> println line }
 }
@@ -23,8 +23,9 @@ configurations {
 
 dependencies {
 	compile "org.springframework:spring-webmvc:3.0.5.RELEASE"
-	compile "org.springframework.security:spring-security-core:3.1.0.RC1"
-	compile ("org.springframework.security:spring-security-openid:3.1.0.RC1") { exclude module: 'openid4java-nodeps' }
+//	compile "org.springframework.security:spring-security-core:3.1.0.RC1"
+//	compile ("org.springframework.security:spring-security-openid:3.1.0.RC1") { exclude module: 'openid4java-nodeps' }
+        compile "org.apache.httpcomponents:httpclient:4.0" // needed for OpenId Yadis Resolver
 	compile "com.google.guava:guava:r08"
 	compile "com.google.inject:guice:2.0"
 	
