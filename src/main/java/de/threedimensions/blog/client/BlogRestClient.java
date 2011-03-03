@@ -81,8 +81,7 @@ public class BlogRestClient {
     }
 
     public void prepareOpenIdLogin(final AsyncRestCallbackHandler asyncRestCallbackHandler) {
-	RequestBuilder requestBuilder = new RequestBuilder(RequestBuilder.GET, AUTH_URL
-		+ "/chris.wewerka@googlemail.com");
+	RequestBuilder requestBuilder = new RequestBuilder(RequestBuilder.GET, AUTH_URL + "/openIdLogin");
 	try {
 	    requestBuilder.sendRequest("", new RequestCallback() {
 		@Override

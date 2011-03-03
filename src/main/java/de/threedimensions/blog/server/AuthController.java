@@ -1,6 +1,5 @@
 package de.threedimensions.blog.server;
 
-import java.io.IOException;
 import java.util.List;
 import java.util.logging.Logger;
 
@@ -26,7 +25,6 @@ import org.openid4java.message.ax.FetchResponse;
 import org.openid4java.server.RealmVerifierFactory;
 import org.openid4java.util.HttpFetcherFactory;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -64,10 +62,9 @@ public class AuthController {
 	openIdConsumerManager = new ConsumerManager(realmVerifierFactory, discovery, httpFetcherFactory);
     }
 
-    @RequestMapping(value = "/{userSuppliedString}", method = RequestMethod.GET)
+    @RequestMapping(value = "/openIdLogin", method = RequestMethod.GET)
     public @ResponseBody
-    String doOpenIdLogin(@PathVariable String userSuppliedString, HttpServletRequest request,
-	    HttpServletResponse response) {
+    String doOpenIdLogin(HttpServletRequest request, HttpServletResponse response) {
 
 	HttpCookies.resetCookie(request, response, FrontendConstants.USER_ID_COOKIE_NAME);
 	HttpCookies.resetCookie(request, response, FrontendConstants.OPEN_ID_IDENTIFIER_COOKIE_NAME);
@@ -169,14 +166,6 @@ public class AuthController {
 
 	} else {
 	    throw new RuntimeException("open id auth NOT successful for identifier");
-	}
-    }
-
-    private void redirect(HttpServletResponse response) {
-	try {
-	    response.sendRedirect(BLOG_BASE_URL);
-	} catch (IOException e) {
-	    throw new RuntimeException("Unable to issue redirect", e);
 	}
     }
 }
