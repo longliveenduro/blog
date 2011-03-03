@@ -30,6 +30,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.view.RedirectView;
 
 import de.threedimensions.blog.server.openid.MyHttpCacheProvider;
 import de.threedimensions.blog.server.util.HttpCookies;
@@ -107,7 +109,7 @@ public class AuthController {
     }
 
     @RequestMapping(value = "/response", method = RequestMethod.GET)
-    public void openIdAuthResponse(HttpServletRequest request, HttpServletResponse response) {
+    public ModelAndView openIdAuthResponse(HttpServletRequest request, HttpServletResponse response) {
 
 	// extract the parameters from the authentication response
 	// (which comes in as a HTTP request from the OpenID provider)
@@ -153,18 +155,20 @@ public class AuthController {
 		String email = (String) emails.get(0);
 		LOG.fine("Email found in openid response: " + email);
 
-		HttpCookies.setCookie(request, response, FrontendConstants.USER_ID_COOKIE_NAME, email);
+		HttpCookies.setCookie(request, response, FrontendConstants.USER_ID_COOKIE_NAME, email, true);
 		HttpCookies.setCookie(request, response, FrontendConstants.OPEN_ID_IDENTIFIER_COOKIE_NAME,
-			verifiedId.getIdentifier());
+			verifiedId.getIdentifier(), true);
+		LOG.fine("Cookie set : " + email + ", " + verifiedId.getIdentifier());
 
-		redirect(response);
+		LOG.fine("Redirecting to " + BLOG_BASE_URL);
+		return new ModelAndView(new RedirectView(BLOG_BASE_URL));
 	    } else {
 		LOG.warning("Unable to extract email from open id auth");
+		throw new RuntimeException("Unable to extract email from open id auth");
 	    }
 
 	} else {
-	    // OpenID authentication failed
-	    LOG.warning("open id auth NOT successful for identifier: ");
+	    throw new RuntimeException("open id auth NOT successful for identifier");
 	}
     }
 

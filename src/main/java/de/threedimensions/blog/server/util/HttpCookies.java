@@ -41,7 +41,7 @@ public final class HttpCookies {
     }
 
     public static void setCookie(HttpServletRequest request, HttpServletResponse response, final String cookieName,
-	    String cookieValue) {
+	    String cookieValue, boolean isRootCookie) {
 	Cookie cookie = findCookie(request, cookieName);
 
 	if (cookie == null) {
@@ -51,6 +51,9 @@ public final class HttpCookies {
 	}
 
 	cookie.setMaxAge(dayInSeconds); // one day
+	if (isRootCookie)
+	    cookie.setPath("/");
+
 	response.addCookie(cookie);
     }
 }
