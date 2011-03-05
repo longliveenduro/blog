@@ -16,12 +16,13 @@ import com.google.gwt.user.client.ui.Widget;
 
 import de.threedimensions.blog.client.model.BlogEntryJs;
 import de.threedimensions.blog.client.model.BlogEntryRefJs;
+import de.threedimensions.blog.client.rest.BlogRestClient;
 import de.threedimensions.blog.shared.FrontendConstants;
 
 /**
  * Entry point classes define <code>onModuleLoad()</code>.
  */
-public class Blog implements EntryPoint, AsyncRestCallbackHandler {
+public class Blog implements EntryPoint, AsyncCallbackHandler {
 
     private VerticalPanel contentMiddlePanel = new VerticalPanel();
     private BlogRestClient blogRestClient = new BlogRestClient();

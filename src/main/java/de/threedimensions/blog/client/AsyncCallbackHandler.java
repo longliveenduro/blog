@@ -9,7 +9,7 @@ import de.threedimensions.blog.client.model.BlogEntryRefJs;
  * @author chris
  * 
  */
-public interface AsyncRestCallbackHandler {
+public interface AsyncCallbackHandler {
 
     /**
      * @param blogEntryJs
