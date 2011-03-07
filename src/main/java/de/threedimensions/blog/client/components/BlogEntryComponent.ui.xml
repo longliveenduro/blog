@@ -1,0 +1,144 @@
+<!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
+<ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder" xmlns:g="urn:import:com.google.gwt.user.client.ui">
+	<ui:style>
+		/* Add CSS here. See the GWT docs on UI Binder for more details */
+	</ui:style>
+	<g:HTMLPanel>
+	<!-- repeat this for every post -->
+	<div class="date-outer">
+
+		<h2 class="date-header">
+			<span>Montag, 7. März 2011</span>
+		</h2>
+
+		<div class="date-posts">
+
+			<div class="post-outer">
+				<div class="post hentry">
+					<a name="1274309577889243468"></a>
+					<h3 class="post-title entry-title">Testpost</h3>
+					<div class="post-header">
+						<div class="post-header-line-1"></div>
+					</div>
+					<div class="post-body entry-content">
+						<strong>Lorem Ipsum</strong>
+						ist ein einfacher
+						Demo-Text für die Print- und Schriftindustrie. Lorem
+						Ipsum ist in der Industrie bereits der Standard
+						Demo-Text seit 1500, als ein unbekannter
+						Schriftsteller eine Hand voll Wörter nahm und diese
+						durcheinander warf um ein Musterbuch zu erstellen. Es
+						hat nicht nur 5 Jahrhunderte überlebt, sondern auch
+						in Spruch in die elektronische Schriftbearbeitung
+						geschafft (bemerke, nahezu unverändert). Bekannt
+						wurde es 1960, mit dem erscheinen von "Letraset",
+						welches Passagen von Lorem Ipsum enhielt, so wie
+						Desktop Software wie "Aldus PageMaker" - ebenfalls
+						mit Lorem Ipsum.
+						<div style="clear: both;"></div>
+					</div>
+					<div class="post-footer">
+						<div class="post-footer-line post-footer-line-1">
+							<span class="post-author vcard">
+								Eingestellt
+								von
+								<span class="fn">Chris Wewerka</span>
+							</span>
+							<span class="post-timestamp">
+								um
+								<a title="permanent link" rel="bookmark"
+									href="http://threedimensionsblog.blogspot.com/2011/03/testpost.html"
+									class="timestamp-link">
+									<abbr title="2011-03-07T10:59:00-08:00" class="published">10:59</abbr>
+								</a>
+							</span>
+							<span class="post-comment-link">
+							</span>
+							<span class="post-icons">
+								<span class="item-control blog-admin pid-1582616971">
+									<a title="Post bearbeiten"
+										href="http://www.blogger.com/post-edit.g?blogID=8982509836706833417&amp;postID=1274309577889243468">
+										<img width="18" height="18"
+											src="http://img2.blogblog.com/img/icon18_edit_allbkg.gif"
+											class="icon-action" alt="" />
+									</a>
+								</span>
+							</span>
+							<div class="post-share-buttons">
+								<a title="Diesen Post per E-Mail versenden" target="_blank"
+									href="http://www.blogger.com/share-post.g?blogID=8982509836706833417&amp;postID=1274309577889243468&amp;target=email"
+									class="goog-inline-block share-button sb-email">
+									<span class="share-button-link-text">Diesen
+										Post per E-Mail versenden</span>
+								</a>
+								<a title="BlogThis!" target="_blank"
+									onclick="window.open(this.href, &quot;_blank&quot;, &quot;height=270,width=475&quot;); return false;"
+									href="http://www.blogger.com/share-post.g?blogID=8982509836706833417&amp;postID=1274309577889243468&amp;target=blog"
+									class="goog-inline-block share-button sb-blog">
+									<span class="share-button-link-text">BlogThis!</span>
+								</a>
+								<a title="In Twitter freigeben" target="_blank"
+									href="http://www.blogger.com/share-post.g?blogID=8982509836706833417&amp;postID=1274309577889243468&amp;target=twitter"
+									class="goog-inline-block share-button sb-twitter">
+									<span class="share-button-link-text">In
+										Twitter freigeben</span>
+								</a>
+								<a title="In Facebook freigeben" target="_blank"
+									onclick="window.open(this.href, &quot;_blank&quot;, &quot;height=430,width=640&quot;); return false;"
+									href="http://www.blogger.com/share-post.g?blogID=8982509836706833417&amp;postID=1274309577889243468&amp;target=facebook"
+									class="goog-inline-block share-button sb-facebook">
+									<span class="share-button-link-text">In
+										Facebook freigeben</span>
+								</a>
+								<a title="Freigeben in Google Buzz" target="_blank"
+									onclick="window.open(this.href, &quot;_blank&quot;, &quot;height=415,width=690&quot;); return false;"
+									href="http://www.blogger.com/share-post.g?blogID=8982509836706833417&amp;postID=1274309577889243468&amp;target=buzz"
+									class="goog-inline-block share-button sb-buzz">
+									<span class="share-button-link-text">Freigeben
+										in Google Buzz</span>
+								</a>
+							</div>
+						</div>
+						<div class="post-footer-line post-footer-line-2">
+							<span class="post-labels">
+							</span>
+						</div>
+						<div class="post-footer-line post-footer-line-3">
+							<span class="post-location">
+							</span>
+						</div>
+					</div>
+				</div>
+				<div id="comments" class="comments">
+					<a name="comments"></a>
+					<h4>0 Kommentare:</h4>
+					<div id="Blog1_comments-block-wrapper">
+						<dl id="comments-block" class="avatar-comment-indent">
+						</dl>
+					</div>
+					<p class="comment-footer"></p>
+					<div class="comment-form">
+						<a name="comment-form"></a>
+						<h4 id="comment-post-message">Kommentar
+							veröffentlichen</h4>
+						<p></p>
+						<a id="comment-editor-src"
+							href="http://www.blogger.com/comment-iframe.g?blogID=8982509836706833417&amp;postID=1274309577889243468&amp;blogspotRpcToken=4314274"></a>
+						<iframe width="100%" height="410" frameborder="0"
+							src="http://www.blogger.com/comment-iframe.g?blogID=8982509836706833417&amp;postID=1274309577889243468&amp;blogspotRpcToken=4314274#%7B%22color%22%3A%22rgb(51%2C%2051%2C%2051)%22%2C%22backgroundColor%22%3A%22rgb(255%2C%20255%2C%20255)%22%2C%22unvisitedLinkColor%22%3A%22rgb(51%2C%20102%2C%20153)%22%2C%22fontFamily%22%3A%22Arial%2CTahoma%2CHelvetica%2CFreeSans%2Csans-serif%22%7D"
+							name="comment-editor" id="comment-editor"
+							class="blogger-iframe-colorize blogger-comment-from-post"
+							allowtransparency="true"></iframe>
+
+					</div>
+
+					<div id="backlinks-container">
+						<div id="Blog1_backlinks-container"></div>
+					</div>
+				</div>
+			</div>
+			<div id="latency-1274309577889243468"></div>
+		</div>
+	</div>
+	</g:HTMLPanel>
+</ui:UiBinder>

@@ -14,6 +14,7 @@ import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.Widget;
 
+import de.threedimensions.blog.client.components.BlogEntryComponent;
 import de.threedimensions.blog.client.model.BlogEntryJs;
 import de.threedimensions.blog.client.model.BlogEntryRefJs;
 import de.threedimensions.blog.client.rest.BlogRestClient;
@@ -53,7 +54,9 @@ public class Blog implements EntryPoint, AsyncCallbackHandler {
 
 	mainPanel.add(contentMiddlePanel);
 	mainPanel.add(navPanel);
-	RootPanel.get("blogPanel").add(mainPanel);
+	// RootPanel.get("blogPanel").add(mainPanel);
+	BlogEntryComponent blogEntryComponent = new BlogEntryComponent();
+	RootPanel.get("blogEntryComponent").add(blogEntryComponent);
 
 	blogRestClient.getPosts(this);
     }
