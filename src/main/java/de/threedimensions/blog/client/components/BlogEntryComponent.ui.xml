@@ -5,10 +5,10 @@
 	</ui:style>
 	<g:HTMLPanel>
 	<!-- repeat this for every post -->
-	<div class="date-outer">
+		<div class="date-outer">
 
 		<h2 class="date-header">
-			<span>Montag, 7. März 2011</span>
+			<span><g:Label ui:field="blogPostDate"/></span>
 		</h2>
 
 		<div class="date-posts">

@@ -6,13 +6,11 @@ import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.Cookies;
 import com.google.gwt.user.client.ui.Button;
-import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Hyperlink;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.VerticalPanel;
-import com.google.gwt.user.client.ui.Widget;
 
 import de.threedimensions.blog.client.components.BlogEntryComponent;
 import de.threedimensions.blog.client.model.BlogEntryJs;
@@ -55,17 +53,20 @@ public class Blog implements EntryPoint, AsyncCallbackHandler {
 	mainPanel.add(contentMiddlePanel);
 	mainPanel.add(navPanel);
 	// RootPanel.get("blogPanel").add(mainPanel);
-	BlogEntryComponent blogEntryComponent = new BlogEntryComponent();
-	RootPanel.get("blogEntryComponent").add(blogEntryComponent);
 
 	blogRestClient.getPosts(this);
     }
 
     @Override
     public void blogEntryReceived(BlogEntryJs blogEntryJs) {
-	Widget widget = new HTML("<h2>" + blogEntryJs.getHeading() + "</h2>" + blogEntryJs.getContent());
-	contentMiddlePanel.add(widget);
-	contentMiddlePanel.add(new CommentPanel(blogEntryJs.getId()));
+
+	BlogEntryComponent blogEntryComponent = new BlogEntryComponent(blogEntryJs);
+	RootPanel.get("blogEntryComponent").add(blogEntryComponent);
+
+	// Widget widget = new HTML("<h2>" + blogEntryJs.getHeading() + "</h2>"
+	// + blogEntryJs.getContent());
+	// contentMiddlePanel.add(widget);
+	// contentMiddlePanel.add(new CommentPanel(blogEntryJs.getId()));
     }
 
     @Override
