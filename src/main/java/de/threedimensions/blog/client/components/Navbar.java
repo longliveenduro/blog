@@ -5,24 +5,27 @@ import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiHandler;
+import com.google.gwt.user.client.Cookies;
 import com.google.gwt.user.client.ui.Anchor;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.InlineLabel;
 import com.google.gwt.user.client.ui.Widget;
 
+import de.threedimensions.blog.client.event.EventHandler;
+import de.threedimensions.blog.client.event.OpenIdLoginUrlReceivedEvent;
 import de.threedimensions.blog.client.rest.BlogRestClient;
+import de.threedimensions.blog.shared.FrontendConstants;
 
 /**
  * @author chris
  * 
  */
-public class Navbar extends Composite {
+public class Navbar extends Composite implements EventHandler<OpenIdLoginUrlReceivedEvent> {
     interface NavbarUiBinder extends UiBinder<Widget, Navbar> {
     }
 
     private static NavbarUiBinder uiBinder = GWT.create(NavbarUiBinder.class);
-
-    private BlogRestClient blogRestClient = new BlogRestClient();
+    private final BlogRestClient blogRestClient;
 
     @UiField
     InlineLabel userName;
@@ -30,31 +33,30 @@ public class Navbar extends Composite {
     @UiField
     Anchor loginLink;
 
-    public Navbar() {
+    public Navbar(BlogRestClient blogRestClient) {
+	this.blogRestClient = blogRestClient;
 	initWidget(uiBinder.createAndBindUi(this));
-	userName.setText("test@spam.la");
+
+	final String openIdIdentifier = Cookies.getCookie(FrontendConstants.OPEN_ID_IDENTIFIER_COOKIE_NAME);
+	if (openIdIdentifier == null) {
+	    loginLink.setVisible(true);
+	    userName.setText("Not logged in");
+	} else {
+	    loginLink.setVisible(false);
+	    userName.setText(Cookies.getCookie(FrontendConstants.USER_ID_COOKIE_NAME));
+	}
     }
 
     @UiHandler("loginLink")
     void buttonClick(ClickEvent event) {
-	userName.setText("login clicked");
-	// blogRestClient.prepareOpenIdLogin(this);
+	blogRestClient.prepareOpenIdLogin(this);
     }
 
-    // final String openIdIdentifier =
-    // Cookies.getCookie(FrontendConstants.OPEN_ID_IDENTIFIER_COOKIE_NAME);
-    // if (openIdIdentifier == null) {
-    // Button loginButton = new Button("Login with Google Account", new
-    // ClickHandler() {
-    // public void onClick(ClickEvent event) {
-    // blogRestClient.prepareOpenIdLogin(Blog.this);
-    // }
-    // });
-    // contentMiddlePanel.add(loginButton);
-    // } else {
-    // Label userNameLabel = new Label("Logged in with "
-    // + Cookies.getCookie(FrontendConstants.USER_ID_COOKIE_NAME));
-    // contentMiddlePanel.add(userNameLabel);
-    // }
+    public native void redirectToOpenIdLogin(String url) /*-{ $wnd.location = url; }-*/;
 
+    @Override
+    public void handleEvent(OpenIdLoginUrlReceivedEvent event) {
+	redirectToOpenIdLogin(event.getContent());
+
+    }
 }

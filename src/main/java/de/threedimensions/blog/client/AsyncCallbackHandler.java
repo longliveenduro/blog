@@ -2,7 +2,6 @@ package de.threedimensions.blog.client;
 
 import com.google.gwt.core.client.JsArray;
 
-import de.threedimensions.blog.client.model.BlogEntryJs;
 import de.threedimensions.blog.client.model.BlogEntryRefJs;
 
 /**
@@ -12,23 +11,7 @@ import de.threedimensions.blog.client.model.BlogEntryRefJs;
 public interface AsyncCallbackHandler {
 
     /**
-     * @param blogEntryJs
-     */
-    void blogEntryReceived(BlogEntryJs blogEntryJs);
-
-    /**
-     * @param string
-     */
-    void handleError(String errorMessage);
-
-    /**
      * @param blogEntryRefJs
      */
     void listOfBlogEntriesReceived(JsArray<BlogEntryRefJs> blogEntryRefJs);
-
-    /**
-     * @param text
-     */
-    void openIdLoginUrlReceived(String text);
-
 }

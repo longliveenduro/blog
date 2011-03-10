@@ -6,6 +6,9 @@ import com.google.gwt.core.client.JsArray;
 import com.google.gwt.http.client.RequestBuilder;
 
 import de.threedimensions.blog.client.AsyncCallbackHandler;
+import de.threedimensions.blog.client.event.BlogEntryReceivedEvent;
+import de.threedimensions.blog.client.event.EventHandler;
+import de.threedimensions.blog.client.event.OpenIdLoginUrlReceivedEvent;
 import de.threedimensions.blog.client.model.BlogEntryJs;
 import de.threedimensions.blog.client.model.BlogEntryRefJs;
 
@@ -20,6 +23,11 @@ public class BlogRestClient {
     private static final String AUTH_URL = REST_BASE_URL + "auth";
 
     private RestRequestBuilder restRequestBuilder = new RestRequestBuilder();
+    private final ErrorHandler errorHandler;
+
+    public BlogRestClient(ErrorHandler errorHandler) {
+	this.errorHandler = errorHandler;
+    }
 
     public void getPosts(final AsyncCallbackHandler asyncRestCallbackHandler) {
 	RestResponseHandler restResponseHandler = new RestResponseHandler() {
@@ -29,37 +37,36 @@ public class BlogRestClient {
 		    JsArray<BlogEntryRefJs> blogEntryRefJs = buildBlogEntryRefsJs(restResponse.getResponse());
 		    asyncRestCallbackHandler.listOfBlogEntriesReceived(blogEntryRefJs);
 		} else {
-		    asyncRestCallbackHandler.handleError(restResponse.getErrorMessage());
+		    errorHandler.handleError(restResponse.getErrorMessage());
 		}
 	    }
 	};
 	restRequestBuilder.doRestCall(restResponseHandler, RequestBuilder.GET, POSTS_URL);
     }
 
-    public void getBlogEntry(final String urlForPost, final AsyncCallbackHandler asyncRestCallbackHandler) {
+    public void getBlogEntry(final String urlForPost, final EventHandler<BlogEntryReceivedEvent> eventHandler) {
 	RestResponseHandler restResponseHandler = new RestResponseHandler() {
 	    @Override
 	    public void handleRestResponse(RestResponse restResponse) {
 		if (restResponse.isNotError()) {
 		    BlogEntryJs blogEntryJs = buildBlogEntryJs(restResponse.getResponse());
-		    asyncRestCallbackHandler.blogEntryReceived(blogEntryJs);
-
+		    eventHandler.handleEvent(new BlogEntryReceivedEvent(blogEntryJs));
 		} else {
-		    asyncRestCallbackHandler.handleError(restResponse.getErrorMessage());
+		    errorHandler.handleError(restResponse.getErrorMessage());
 		}
 	    }
 	};
 	restRequestBuilder.doRestCall(restResponseHandler, RequestBuilder.GET, REST_BASE_URL + urlForPost);
     }
 
-    public void prepareOpenIdLogin(final AsyncCallbackHandler asyncRestCallbackHandler) {
+    public void prepareOpenIdLogin(final EventHandler<OpenIdLoginUrlReceivedEvent> eventHandler) {
 	RestResponseHandler restResponseHandler = new RestResponseHandler() {
 	    @Override
 	    public void handleRestResponse(RestResponse restResponse) {
 		if (restResponse.isNotError()) {
-		    asyncRestCallbackHandler.openIdLoginUrlReceived(restResponse.getResponse());
+		    eventHandler.handleEvent(new OpenIdLoginUrlReceivedEvent(restResponse.getResponse()));
 		} else {
-		    asyncRestCallbackHandler.handleError(restResponse.getErrorMessage());
+		    errorHandler.handleError(restResponse.getErrorMessage());
 		}
 	    }
 	};

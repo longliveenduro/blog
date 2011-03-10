@@ -9,13 +9,15 @@ import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.Widget;
 
+import de.threedimensions.blog.client.event.BlogEntryReceivedEvent;
+import de.threedimensions.blog.client.event.EventHandler;
 import de.threedimensions.blog.client.model.BlogEntryJs;
 
 /**
  * @author chris
  * 
  */
-public class BlogEntryComponent extends Composite {
+public class BlogEntryComponent extends Composite implements EventHandler<BlogEntryReceivedEvent> {
     interface BlogEntryComponentUiBinder extends UiBinder<Widget, BlogEntryComponent> {
     }
 
@@ -26,9 +28,13 @@ public class BlogEntryComponent extends Composite {
 
     private DateTimeFormat dateFormat = DateTimeFormat.getFormat(PredefinedFormat.DATE_FULL);
 
-    public BlogEntryComponent(BlogEntryJs blogEntryJs) {
+    public BlogEntryComponent() {
 	initWidget(uiBinder.createAndBindUi(this));
+    }
 
+    @Override
+    public void handleEvent(BlogEntryReceivedEvent event) {
+	BlogEntryJs blogEntryJs = event.getContent();
 	blogPostDate.setText(blogEntryJs.getCreationTime().toLocaleDateString());
     }
 

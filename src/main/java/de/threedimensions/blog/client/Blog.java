@@ -10,19 +10,20 @@ import com.google.gwt.user.client.ui.VerticalPanel;
 
 import de.threedimensions.blog.client.components.BlogEntryComponent;
 import de.threedimensions.blog.client.components.Navbar;
-import de.threedimensions.blog.client.model.BlogEntryJs;
 import de.threedimensions.blog.client.model.BlogEntryRefJs;
 import de.threedimensions.blog.client.rest.BlogRestClient;
+import de.threedimensions.blog.client.rest.ErrorHandler;
 
 /**
  * Entry point classes define <code>onModuleLoad()</code>.
  */
-public class Blog implements EntryPoint, AsyncCallbackHandler {
+public class Blog implements EntryPoint, AsyncCallbackHandler, ErrorHandler {
 
     private VerticalPanel contentMiddlePanel = new VerticalPanel();
-    private BlogRestClient blogRestClient = new BlogRestClient();
+    private BlogRestClient blogRestClient = new BlogRestClient(this);
     private VerticalPanel navPanel = new VerticalPanel();
     private Label feedbackLabel = new Label();
+    private BlogEntryComponent blogEntryComponent;
 
     /**
      * Entry point method.
@@ -36,29 +37,19 @@ public class Blog implements EntryPoint, AsyncCallbackHandler {
 	mainPanel.add(navPanel);
 	// RootPanel.get("blogPanel").add(mainPanel);
 
-	Navbar navbar = new Navbar();
+	Navbar navbar = new Navbar(blogRestClient);
 	RootPanel.get("navbar").add(navbar);
 
-	blogRestClient.getPosts(this);
-    }
-
-    @Override
-    public void blogEntryReceived(BlogEntryJs blogEntryJs) {
-
-	BlogEntryComponent blogEntryComponent = new BlogEntryComponent(blogEntryJs);
+	blogEntryComponent = new BlogEntryComponent();
 	RootPanel.get("blogEntryComponent").add(blogEntryComponent);
-
-	// Widget widget = new HTML("<h2>" + blogEntryJs.getHeading() + "</h2>"
-	// + blogEntryJs.getContent());
-	// contentMiddlePanel.add(widget);
-	// contentMiddlePanel.add(new CommentPanel(blogEntryJs.getId()));
+	blogRestClient.getPosts(this);
     }
 
     @Override
     public void listOfBlogEntriesReceived(JsArray<BlogEntryRefJs> blogEntryRefJsArray) {
 	for (int i = 0; i < blogEntryRefJsArray.length(); i++) {
 	    BlogEntryRefJs blogEntryRefJs = blogEntryRefJsArray.get(i);
-	    blogRestClient.getBlogEntry(blogEntryRefJs.getUrl(), this);
+	    blogRestClient.getBlogEntry(blogEntryRefJs.getUrl(), blogEntryComponent);
 	    navPanel.add(new Hyperlink("Post " + blogEntryRefJs.getId(), blogEntryRefJs.getUrl()));
 	}
     }
@@ -67,10 +58,4 @@ public class Blog implements EntryPoint, AsyncCallbackHandler {
     public void handleError(String errorMessage) {
 	feedbackLabel.setText(errorMessage);
     }
-
-    @Override
-    public native void openIdLoginUrlReceived(String url) /*-{ $wnd.location = url; }-*/;
-    // Window.open(text, "openid_popup",
-    // "width=450,height=500,location=1,status=1,resizable=yes");
-
 }
