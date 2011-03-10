@@ -1,9 +1,9 @@
 package de.threedimensions.blog.server;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
+import org.joda.time.DateTime;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -30,7 +30,7 @@ public class BlogController {
     public @ResponseBody
     BlogEntry getBlogEntry(@PathVariable Long postId) {
 	BlogEntry blogEntry = new BlogEntry("Blog Entry from Server with id " + postId, "Blog content from server",
-		new Date());
+		new DateTime());
 	blogEntry.setId(postId);
 	return blogEntry;
     }

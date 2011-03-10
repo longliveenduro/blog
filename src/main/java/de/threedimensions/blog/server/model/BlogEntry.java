@@ -1,6 +1,6 @@
 package de.threedimensions.blog.server.model;
 
-import java.util.Date;
+import org.joda.time.DateTime;
 
 /**
  * @author Chris Wewerka
@@ -10,14 +10,14 @@ public class BlogEntry {
     private Long id;
     private String heading;
     private String content;
-    private Date creationTime;
+    private DateTime creationTime;
 
     /**
      * @param heading
      * @param content
      * @param creationTime
      */
-    public BlogEntry(String heading, String content, Date creationTime) {
+    public BlogEntry(String heading, String content, DateTime creationTime) {
 	this.heading = heading;
 	this.content = content;
 	this.creationTime = creationTime;
@@ -56,7 +56,7 @@ public class BlogEntry {
     /**
      * @return the creationTime
      */
-    public Date getCreationTime() {
+    public DateTime getCreationTime() {
 	return creationTime;
     }
 
@@ -64,7 +64,7 @@ public class BlogEntry {
      * @param creationTime
      *            the creationTime to set
      */
-    public void setCreationTime(Date creationTime) {
+    public void setCreationTime(DateTime creationTime) {
 	this.creationTime = creationTime;
     }
 

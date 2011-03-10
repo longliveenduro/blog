@@ -23,10 +23,8 @@ configurations {
 
 dependencies {
 	compile "org.springframework:spring-webmvc:3.0.5.RELEASE"
-//	compile "org.springframework.security:spring-security-core:3.1.0.RC1"
-//	compile ("org.springframework.security:spring-security-openid:3.1.0.RC1") { exclude module: 'openid4java-nodeps' }
-        compile "org.apache.httpcomponents:httpclient:4.0" // needed for OpenId Yadis Resolver
 	compile "com.google.guava:guava:r08"
+	compile "joda-time:joda-time:1.6.2"
 	compile "com.google.inject:guice:2.0"
 	
 	compile ('org.openid4java:openid4java:0.9.6-SNAPSHOT') {
@@ -37,6 +35,7 @@ dependencies {
 		    url = 'https://oss.sonatype.org/content/repositories/openid4java-snapshots/org/openid4java/openid4java-nodeps/0.9.6-SNAPSHOT/openid4java-nodeps-0.9.6-20110105.140426-5.jar'
 		}
 	}
+	compile "org.apache.httpcomponents:httpclient:4.0" // needed for OpenId Yadis Resolver
 	
 	runtime "org.codehaus.jackson:jackson-core-lgpl:1.6.5"  
 	runtime "org.codehaus.jackson:jackson-mapper-lgpl:1.6.5"  

@@ -1,14 +1,13 @@
 package de.threedimensions.blog.client.model;
 
-import java.util.Date;
-
 import com.google.gwt.core.client.JavaScriptObject;
+import com.google.gwt.core.client.JsDate;
 
 /**
  * @author chris
  * 
  */
-public class BlogEntryJs extends JavaScriptObject {
+public final class BlogEntryJs extends JavaScriptObject {
 
     protected BlogEntryJs() {
     }
@@ -19,5 +18,9 @@ public class BlogEntryJs extends JavaScriptObject {
 
     public final native String getContent() /*-{ return this.content; }-*/;
 
-    public final native Date getCreationTime() /*-{ return this.creationTime; }-*/;
+    public final native double getCreationTimeAsDouble() /*-{ return this.creationTime; }-*/;
+
+    public final JsDate getCreationTime() {
+	return JsDate.create(getCreationTimeAsDouble());
+    }
 }
