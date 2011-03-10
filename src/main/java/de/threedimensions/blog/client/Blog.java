@@ -2,10 +2,6 @@ package de.threedimensions.blog.client;
 
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.core.client.JsArray;
-import com.google.gwt.event.dom.client.ClickEvent;
-import com.google.gwt.event.dom.client.ClickHandler;
-import com.google.gwt.user.client.Cookies;
-import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Hyperlink;
 import com.google.gwt.user.client.ui.Label;
@@ -13,10 +9,10 @@ import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
 import de.threedimensions.blog.client.components.BlogEntryComponent;
+import de.threedimensions.blog.client.components.Navbar;
 import de.threedimensions.blog.client.model.BlogEntryJs;
 import de.threedimensions.blog.client.model.BlogEntryRefJs;
 import de.threedimensions.blog.client.rest.BlogRestClient;
-import de.threedimensions.blog.shared.FrontendConstants;
 
 /**
  * Entry point classes define <code>onModuleLoad()</code>.
@@ -36,23 +32,12 @@ public class Blog implements EntryPoint, AsyncCallbackHandler {
 	feedbackLabel.setStyleName("errorFeedback", true);
 	contentMiddlePanel.add(feedbackLabel);
 
-	final String openIdIdentifier = Cookies.getCookie(FrontendConstants.OPEN_ID_IDENTIFIER_COOKIE_NAME);
-	if (openIdIdentifier == null) {
-	    Button loginButton = new Button("Login with Google Account", new ClickHandler() {
-		public void onClick(ClickEvent event) {
-		    blogRestClient.prepareOpenIdLogin(Blog.this);
-		}
-	    });
-	    contentMiddlePanel.add(loginButton);
-	} else {
-	    Label userNameLabel = new Label("Logged in with "
-		    + Cookies.getCookie(FrontendConstants.USER_ID_COOKIE_NAME));
-	    contentMiddlePanel.add(userNameLabel);
-	}
-
 	mainPanel.add(contentMiddlePanel);
 	mainPanel.add(navPanel);
 	// RootPanel.get("blogPanel").add(mainPanel);
+
+	Navbar navbar = new Navbar();
+	RootPanel.get("navbar").add(navbar);
 
 	blogRestClient.getPosts(this);
     }
