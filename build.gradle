@@ -22,6 +22,7 @@ configurations {
 }
 
 dependencies {
+	compile "org.springframework:spring-orm:3.0.5.RELEASE"
 	compile "org.springframework:spring-webmvc:3.0.5.RELEASE"
 	compile "com.google.guava:guava:r08"
 	compile "joda-time:joda-time:1.6.2"

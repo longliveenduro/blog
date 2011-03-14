@@ -1,13 +1,22 @@
 package de.threedimensions.blog.server.model;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
 import org.joda.time.DateTime;
 
 /**
  * @author Chris Wewerka
  * 
  */
+@Entity
 public class BlogEntry {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     private String heading;
     private String content;
     private DateTime creationTime;
