@@ -329,8 +329,8 @@ body {
 
 .content-outer,.content-fauxcolumn-outer,.region-inner {
 	min-width: 860px;
-	max-width: 860px;
-	_width: 860px;
+	max-width: 1000px;
+	_width: 1000px;
 }
 
 .main-inner .columns {

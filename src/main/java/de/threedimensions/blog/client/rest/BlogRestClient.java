@@ -5,9 +5,9 @@ import com.google.gwt.core.client.JavaScriptObject;
 import com.google.gwt.core.client.JsArray;
 import com.google.gwt.http.client.RequestBuilder;
 
-import de.threedimensions.blog.client.AsyncCallbackHandler;
 import de.threedimensions.blog.client.event.BlogEntryReceivedEvent;
 import de.threedimensions.blog.client.event.EventHandler;
+import de.threedimensions.blog.client.event.ListOfBlogEntryRefsReceivedEvent;
 import de.threedimensions.blog.client.event.OpenIdLoginUrlReceivedEvent;
 import de.threedimensions.blog.client.model.BlogEntryJs;
 import de.threedimensions.blog.client.model.BlogEntryRefJs;
@@ -29,13 +29,14 @@ public class BlogRestClient {
 	this.errorHandler = errorHandler;
     }
 
-    public void getPosts(final AsyncCallbackHandler asyncRestCallbackHandler) {
+    public void getPosts(final EventHandler<ListOfBlogEntryRefsReceivedEvent> eventHandler) {
 	RestResponseHandler restResponseHandler = new RestResponseHandler() {
 	    @Override
 	    public void handleRestResponse(RestResponse restResponse) {
 		if (restResponse.isNotError()) {
 		    JsArray<BlogEntryRefJs> blogEntryRefJs = buildBlogEntryRefsJs(restResponse.getResponse());
-		    asyncRestCallbackHandler.listOfBlogEntriesReceived(blogEntryRefJs);
+		    ListOfBlogEntryRefsReceivedEvent event = new ListOfBlogEntryRefsReceivedEvent(blogEntryRefJs);
+		    eventHandler.handleEvent(event);
 		} else {
 		    errorHandler.handleError(restResponse.getErrorMessage());
 		}

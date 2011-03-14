@@ -1,15 +1,15 @@
 package de.threedimensions.blog.client;
 
 import com.google.gwt.core.client.EntryPoint;
-import com.google.gwt.core.client.JsArray;
 import com.google.gwt.user.client.ui.HorizontalPanel;
-import com.google.gwt.user.client.ui.Hyperlink;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
 import de.threedimensions.blog.client.components.BlogEntryComponent;
 import de.threedimensions.blog.client.components.Navbar;
+import de.threedimensions.blog.client.event.EventHandler;
+import de.threedimensions.blog.client.event.ListOfBlogEntryRefsReceivedEvent;
 import de.threedimensions.blog.client.model.BlogEntryRefJs;
 import de.threedimensions.blog.client.rest.BlogRestClient;
 import de.threedimensions.blog.client.rest.ErrorHandler;
@@ -17,7 +17,7 @@ import de.threedimensions.blog.client.rest.ErrorHandler;
 /**
  * Entry point classes define <code>onModuleLoad()</code>.
  */
-public class Blog implements EntryPoint, AsyncCallbackHandler, ErrorHandler {
+public class Blog implements EntryPoint, ErrorHandler, EventHandler<ListOfBlogEntryRefsReceivedEvent> {
 
     private VerticalPanel contentMiddlePanel = new VerticalPanel();
     private BlogRestClient blogRestClient = new BlogRestClient(this);
@@ -46,16 +46,15 @@ public class Blog implements EntryPoint, AsyncCallbackHandler, ErrorHandler {
     }
 
     @Override
-    public void listOfBlogEntriesReceived(JsArray<BlogEntryRefJs> blogEntryRefJsArray) {
-	for (int i = 0; i < blogEntryRefJsArray.length(); i++) {
-	    BlogEntryRefJs blogEntryRefJs = blogEntryRefJsArray.get(i);
-	    blogRestClient.getBlogEntry(blogEntryRefJs.getUrl(), blogEntryComponent);
-	    navPanel.add(new Hyperlink("Post " + blogEntryRefJs.getId(), blogEntryRefJs.getUrl()));
-	}
+    public void handleError(String errorMessage) {
+	feedbackLabel.setText(errorMessage);
     }
 
     @Override
-    public void handleError(String errorMessage) {
-	feedbackLabel.setText(errorMessage);
+    public void handleEvent(ListOfBlogEntryRefsReceivedEvent event) {
+	BlogEntryRefJs blogEntryRefJs = event.getContent().get(0);
+	if (blogEntryRefJs != null) {
+	    blogRestClient.getBlogEntry(blogEntryRefJs.getUrl(), blogEntryComponent);
+	}
     }
 }
