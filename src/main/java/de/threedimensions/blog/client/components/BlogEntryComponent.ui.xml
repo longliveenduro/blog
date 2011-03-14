@@ -16,25 +16,12 @@
 			<div class="post-outer">
 				<div class="post hentry">
 					<a name="1274309577889243468"></a>
-					<h3 class="post-title entry-title">Testpost</h3>
+					<h3 class="post-title entry-title"><g:Label ui:field="blogPostTitle"/></h3>
 					<div class="post-header">
 						<div class="post-header-line-1"></div>
 					</div>
 					<div class="post-body entry-content">
-						<strong>Lorem Ipsum</strong>
-						ist ein einfacher
-						Demo-Text für die Print- und Schriftindustrie. Lorem
-						Ipsum ist in der Industrie bereits der Standard
-						Demo-Text seit 1500, als ein unbekannter
-						Schriftsteller eine Hand voll Wörter nahm und diese
-						durcheinander warf um ein Musterbuch zu erstellen. Es
-						hat nicht nur 5 Jahrhunderte überlebt, sondern auch
-						in Spruch in die elektronische Schriftbearbeitung
-						geschafft (bemerke, nahezu unverändert). Bekannt
-						wurde es 1960, mit dem erscheinen von "Letraset",
-						welches Passagen von Lorem Ipsum enhielt, so wie
-						Desktop Software wie "Aldus PageMaker" - ebenfalls
-						mit Lorem Ipsum.
+						<g:Label ui:field="blogPostContent"/>
 						<div style="clear: both;"></div>
 					</div>
 					<div class="post-footer">
@@ -42,14 +29,14 @@
 							<span class="post-author vcard">
 								Eingestellt
 								von
-								<span class="fn">Chris Wewerka</span>
+								<span class="fn">YYYYYY</span>
 							</span>
 							<span class="post-timestamp">
 								um
 								<a title="permanent link" rel="bookmark"
 									href="http://threedimensionsblog.blogspot.com/2011/03/testpost.html"
 									class="timestamp-link">
-									<abbr title="2011-03-07T10:59:00-08:00" class="published">10:59</abbr>
+									<abbr title="2011-03-07T10:59:00-08:00" class="published"><g:InlineLabel ui:field="blogPostTime" /></abbr>
 								</a>
 							</span>
 							<span class="post-comment-link">

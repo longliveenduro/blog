@@ -6,6 +6,7 @@ import com.google.gwt.i18n.client.DateTimeFormat.PredefinedFormat;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.ui.Composite;
+import com.google.gwt.user.client.ui.InlineLabel;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.Widget;
 
@@ -26,6 +27,15 @@ public class BlogEntryComponent extends Composite implements EventHandler<BlogEn
     @UiField
     Label blogPostDate;
 
+    @UiField
+    InlineLabel blogPostTime;
+
+    @UiField
+    Label blogPostTitle;
+
+    @UiField
+    Label blogPostContent;
+
     private DateTimeFormat dateFormat = DateTimeFormat.getFormat(PredefinedFormat.DATE_FULL);
 
     public BlogEntryComponent() {
@@ -36,6 +46,9 @@ public class BlogEntryComponent extends Composite implements EventHandler<BlogEn
     public void handleEvent(BlogEntryReceivedEvent event) {
 	BlogEntryJs blogEntryJs = event.getContent();
 	blogPostDate.setText(blogEntryJs.getCreationTime().toLocaleDateString());
+	blogPostTitle.setText(blogEntryJs.getHeading());
+	blogPostContent.setText(blogEntryJs.getContent());
+	blogPostTime.setText(blogEntryJs.getCreationTime().toLocaleTimeString());
     }
 
 }
