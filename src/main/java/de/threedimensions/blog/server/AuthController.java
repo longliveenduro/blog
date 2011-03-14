@@ -24,6 +24,7 @@ import org.openid4java.message.ax.FetchRequest;
 import org.openid4java.message.ax.FetchResponse;
 import org.openid4java.server.RealmVerifierFactory;
 import org.openid4java.util.HttpFetcherFactory;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -49,6 +50,9 @@ public class AuthController {
 
     private ConsumerManager openIdConsumerManager;
 
+    @Value("#{ systemProperties['localSimulation'] != null }")
+    private boolean localSimulation = false;
+
     public AuthController() {
 	HttpFetcherFactory httpFetcherFactory = new HttpFetcherFactory(new MyHttpCacheProvider());
 	HtmlResolver HtmlResolver = new HtmlResolver(httpFetcherFactory);
@@ -68,6 +72,16 @@ public class AuthController {
 
 	HttpCookies.resetCookie(request, response, FrontendConstants.USER_ID_COOKIE_NAME);
 	HttpCookies.resetCookie(request, response, FrontendConstants.OPEN_ID_IDENTIFIER_COOKIE_NAME);
+
+	if (localSimulation) {
+	    setLoggedInCookies(request, response, new Identifier() {
+		@Override
+		public String getIdentifier() {
+		    return "https://www.google.com/accounts/o8/id?id=AItOawlR6oC_UHENI63N7SOXmEkj2u0jQvXXXHH";
+		}
+	    }, "chris.wewerka@googlemail.com");
+	    return new RedirectView("/").getUrl();
+	}
 
 	try {
 	    // configure the return_to URL where your application will receive
@@ -152,10 +166,7 @@ public class AuthController {
 		String email = (String) emails.get(0);
 		LOG.fine("Email found in openid response: " + email);
 
-		HttpCookies.setCookie(request, response, FrontendConstants.USER_ID_COOKIE_NAME, email, true);
-		HttpCookies.setCookie(request, response, FrontendConstants.OPEN_ID_IDENTIFIER_COOKIE_NAME,
-			verifiedId.getIdentifier(), true);
-		LOG.fine("Cookie set : " + email + ", " + verifiedId.getIdentifier());
+		setLoggedInCookies(request, response, verifiedId, email);
 
 		LOG.fine("Redirecting to " + BLOG_BASE_URL);
 		return new ModelAndView(new RedirectView(BLOG_BASE_URL));
@@ -167,5 +178,14 @@ public class AuthController {
 	} else {
 	    throw new RuntimeException("open id auth NOT successful for identifier");
 	}
+    }
+
+    private void setLoggedInCookies(HttpServletRequest request, HttpServletResponse response, Identifier verifiedId,
+	    String email) {
+	HttpCookies.setCookie(request, response, FrontendConstants.USER_ID_COOKIE_NAME, email, true);
+	HttpCookies.setCookie(request, response, FrontendConstants.OPEN_ID_IDENTIFIER_COOKIE_NAME,
+		verifiedId.getIdentifier(), true);
+
+	LOG.fine("Cookie set : " + email + ", " + verifiedId.getIdentifier());
     }
 }
