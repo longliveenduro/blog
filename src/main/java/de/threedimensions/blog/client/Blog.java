@@ -15,22 +15,27 @@ import de.threedimensions.blog.client.rest.ErrorHandler;
 /**
  * Entry point classes define <code>onModuleLoad()</code>.
  */
-public class Blog implements EntryPoint, ErrorHandler, EventHandler<ListOfBlogEntryRefsReceivedEvent> {
+public class Blog implements EntryPoint, ErrorHandler, EventHandler<ListOfBlogEntryRefsReceivedEvent>, EditorSupport {
 
     private BlogRestClient blogRestClient = new BlogRestClient(this);
     private Label feedbackLabel = new Label();
     private BlogEntryComponent blogEntryComponent;
+    private PostEditComponent postEditPanel = new PostEditComponent(this);
 
     /**
      * Entry point method.
      */
     public void onModuleLoad() {
-	Navbar navbar = new Navbar(blogRestClient);
+	Navbar navbar = new Navbar(blogRestClient, this);
 	RootPanel.get("navbar").add(navbar);
 
 	blogEntryComponent = new BlogEntryComponent();
-	RootPanel.get("blogEntryComponent").add(blogEntryComponent);
+	getPanelForBlogEntry().add(blogEntryComponent);
 	blogRestClient.getPosts(this);
+    }
+
+    private RootPanel getPanelForBlogEntry() {
+	return RootPanel.get("blogEntryComponent");
     }
 
     @Override
@@ -44,5 +49,24 @@ public class Blog implements EntryPoint, ErrorHandler, EventHandler<ListOfBlogEn
 	if (blogEntryRefJs != null) {
 	    blogRestClient.getBlogEntry(blogEntryRefJs.getUrl(), blogEntryComponent);
 	}
+    }
+
+    /**
+     * @see de.threedimensions.blog.client.EditorSupport#showEditor()
+     */
+    @Override
+    public void showEditor() {
+	getPanelForBlogEntry().remove(blogEntryComponent);
+	getPanelForBlogEntry().add(postEditPanel);
+    }
+
+    /**
+     * @see de.threedimensions.blog.client.EditorSupport#showBlog()
+     */
+    @Override
+    public void showBlog(String url) {
+	getPanelForBlogEntry().remove(postEditPanel);
+	getPanelForBlogEntry().add(blogEntryComponent);
+	blogRestClient.getBlogEntry(url, blogEntryComponent);
     }
 }

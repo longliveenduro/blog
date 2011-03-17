@@ -9,6 +9,7 @@ import de.threedimensions.blog.client.event.BlogEntryReceivedEvent;
 import de.threedimensions.blog.client.event.EventHandler;
 import de.threedimensions.blog.client.event.ListOfBlogEntryRefsReceivedEvent;
 import de.threedimensions.blog.client.event.OpenIdLoginUrlReceivedEvent;
+import de.threedimensions.blog.client.event.PostCreatedEvent;
 import de.threedimensions.blog.client.model.BlogEntryJs;
 import de.threedimensions.blog.client.model.BlogEntryRefJs;
 
@@ -74,6 +75,25 @@ public class BlogRestClient {
 	restRequestBuilder.doRestCall(restResponseHandler, RequestBuilder.GET, AUTH_URL + "/openIdLogin");
     }
 
+    /**
+     * Create new post.
+     * 
+     * @param text
+     */
+    public void createNewPost(final EventHandler<PostCreatedEvent> eventHandler, String text) {
+	RestResponseHandler responseHandler = new RestResponseHandler() {
+	    @Override
+	    public void handleRestResponse(RestResponse restResponse) {
+		if (restResponse.isNotError()) {
+		    eventHandler.handleEvent(new PostCreatedEvent(restResponse.getResponse()));
+		} else {
+		    errorHandler.handleError(restResponse.getErrorMessage());
+		}
+	    }
+	};
+	restRequestBuilder.doRestCall(responseHandler, RequestBuilder.POST, POSTS_URL);
+    }
+
     private BlogEntryJs buildBlogEntryJs(String json) {
 	JavaScriptObject javaScriptObject = asBlogEntryJs(json);
 	return javaScriptObject.cast();
@@ -92,4 +112,5 @@ public class BlogRestClient {
      * Convert the string of JSON into JavaScript object.
      */
     private final native JavaScriptObject asBlogEntryJs(String json) /*-{ return eval('(' + json + ')'); }-*/;
+
 }

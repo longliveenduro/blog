@@ -31,6 +31,18 @@ public class BlogController {
 	return blogEntryRefs;
     }
 
+    /**
+     * Create a new blog entry.
+     * 
+     * @return url to newly created blog entry
+     */
+    @RequestMapping(method = RequestMethod.POST)
+    public @ResponseBody
+    String createBlogEntry() {
+	System.out.println("Blog Entry created.");
+	return "posts/3";
+    }
+
     @RequestMapping(value = "/{postId}", method = RequestMethod.GET)
     public @ResponseBody
     BlogEntry getBlogEntry(@PathVariable Long postId) {

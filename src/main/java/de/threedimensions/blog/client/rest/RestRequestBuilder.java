@@ -14,10 +14,15 @@ import com.google.gwt.http.client.Response;
 public class RestRequestBuilder {
 
     public void doRestCall(final RestResponseHandler responseHandler, final Method httpMethod, final String url) {
+	doRestCall(responseHandler, httpMethod, url, "");
+    }
+
+    public void doRestCall(final RestResponseHandler responseHandler, final Method httpMethod, final String url,
+	    String content) {
 
 	RequestBuilder requestBuilder = new RequestBuilder(httpMethod, url);
 	try {
-	    requestBuilder.sendRequest("", new RequestCallback() {
+	    requestBuilder.sendRequest(content, new RequestCallback() {
 		@Override
 		public void onResponseReceived(Request request, Response response) {
 		    if (response.getStatusCode() == 200) {

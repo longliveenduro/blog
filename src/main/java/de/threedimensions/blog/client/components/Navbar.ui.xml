@@ -12,5 +12,6 @@
 			class. See the GWT docs on UI Binder for more details. -->
 		<span id="b-user"><g:InlineLabel ui:field="userName"/></span>
 		<g:Anchor styleName="{style.b-link}" ui:field="loginLink">Login</g:Anchor>
+		<g:Anchor styleName="{style.b-link}" ui:field="newPostLink">New post</g:Anchor>
 	</g:HTMLPanel>
 </ui:UiBinder> 

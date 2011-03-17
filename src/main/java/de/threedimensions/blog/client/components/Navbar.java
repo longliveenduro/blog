@@ -11,6 +11,7 @@ import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.InlineLabel;
 import com.google.gwt.user.client.ui.Widget;
 
+import de.threedimensions.blog.client.EditorSupport;
 import de.threedimensions.blog.client.event.EventHandler;
 import de.threedimensions.blog.client.event.OpenIdLoginUrlReceivedEvent;
 import de.threedimensions.blog.client.rest.BlogRestClient;
@@ -26,6 +27,7 @@ public class Navbar extends Composite implements EventHandler<OpenIdLoginUrlRece
 
     private static NavbarUiBinder uiBinder = GWT.create(NavbarUiBinder.class);
     private final BlogRestClient blogRestClient;
+    private final EditorSupport editorSupport;
 
     @UiField
     InlineLabel userName;
@@ -33,23 +35,34 @@ public class Navbar extends Composite implements EventHandler<OpenIdLoginUrlRece
     @UiField
     Anchor loginLink;
 
-    public Navbar(BlogRestClient blogRestClient) {
+    @UiField
+    Anchor newPostLink;
+
+    public Navbar(BlogRestClient blogRestClient, EditorSupport editorSupport) {
 	this.blogRestClient = blogRestClient;
+	this.editorSupport = editorSupport;
 	initWidget(uiBinder.createAndBindUi(this));
 
 	final String openIdIdentifier = Cookies.getCookie(FrontendConstants.OPEN_ID_IDENTIFIER_COOKIE_NAME);
 	if (openIdIdentifier == null) {
 	    loginLink.setVisible(true);
+	    newPostLink.setVisible(false);
 	    userName.setText("Not logged in");
 	} else {
 	    loginLink.setVisible(false);
+	    newPostLink.setVisible(true);
 	    userName.setText(Cookies.getCookie(FrontendConstants.USER_ID_COOKIE_NAME));
 	}
     }
 
-    @UiHandler("loginLink")
+    @UiHandler({ "loginLink", "newPostLink" })
     void buttonClick(ClickEvent event) {
-	blogRestClient.prepareOpenIdLogin(this);
+	Object object = event.getSource();
+	if (object.equals(newPostLink)) {
+	    editorSupport.showEditor();
+	} else {
+	    blogRestClient.prepareOpenIdLogin(this);
+	}
     }
 
     public native void redirectToOpenIdLogin(String url) /*-{ $wnd.location = url; }-*/;
