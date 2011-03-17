@@ -39,6 +39,7 @@
 									<abbr title="2011-03-07T10:59:00-08:00" class="published"><g:InlineLabel ui:field="blogPostTime" /></abbr>
 								</a>
 							</span>
+							<!-- 
 							<span class="post-comment-link">
 							</span>
 							<span class="post-icons">
@@ -85,6 +86,7 @@
 										in Google Buzz</span>
 								</a>
 							</div>
+							-->
 						</div>
 						<div class="post-footer-line post-footer-line-2">
 							<span class="post-labels">
@@ -96,6 +98,7 @@
 						</div>
 					</div>
 				</div>
+				<!-- 
 				<div id="comments" class="comments">
 					<a name="comments"></a>
 					<h4>0 Kommentare:</h4>
@@ -116,15 +119,13 @@
 							name="comment-editor" id="comment-editor"
 							class="blogger-iframe-colorize blogger-comment-from-post"
 							allowtransparency="true"></iframe>
-
 					</div>
-
 					<div id="backlinks-container">
 						<div id="Blog1_backlinks-container"></div>
 					</div>
 				</div>
+				-->
 			</div>
-			<div id="latency-1274309577889243468"></div>
 		</div>
 	</div>
 	</g:HTMLPanel>

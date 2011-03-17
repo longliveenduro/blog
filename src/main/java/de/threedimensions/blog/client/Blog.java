@@ -1,10 +1,8 @@
 package de.threedimensions.blog.client;
 
 import com.google.gwt.core.client.EntryPoint;
-import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.RootPanel;
-import com.google.gwt.user.client.ui.VerticalPanel;
 
 import de.threedimensions.blog.client.components.BlogEntryComponent;
 import de.threedimensions.blog.client.components.Navbar;
@@ -19,9 +17,7 @@ import de.threedimensions.blog.client.rest.ErrorHandler;
  */
 public class Blog implements EntryPoint, ErrorHandler, EventHandler<ListOfBlogEntryRefsReceivedEvent> {
 
-    private VerticalPanel contentMiddlePanel = new VerticalPanel();
     private BlogRestClient blogRestClient = new BlogRestClient(this);
-    private VerticalPanel navPanel = new VerticalPanel();
     private Label feedbackLabel = new Label();
     private BlogEntryComponent blogEntryComponent;
 
@@ -29,14 +25,6 @@ public class Blog implements EntryPoint, ErrorHandler, EventHandler<ListOfBlogEn
      * Entry point method.
      */
     public void onModuleLoad() {
-	HorizontalPanel mainPanel = new HorizontalPanel();
-	feedbackLabel.setStyleName("errorFeedback", true);
-	contentMiddlePanel.add(feedbackLabel);
-
-	mainPanel.add(contentMiddlePanel);
-	mainPanel.add(navPanel);
-	// RootPanel.get("blogPanel").add(mainPanel);
-
 	Navbar navbar = new Navbar(blogRestClient);
 	RootPanel.get("navbar").add(navbar);
 
