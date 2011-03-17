@@ -13,10 +13,26 @@ import com.google.gwt.http.client.Response;
  */
 public class RestRequestBuilder {
 
+    /**
+     * Make a REST call to the given url with the given method with no content.
+     * 
+     * @param responseHandler
+     * @param httpMethod
+     * @param url
+     */
     public void doRestCall(final RestResponseHandler responseHandler, final Method httpMethod, final String url) {
 	doRestCall(responseHandler, httpMethod, url, "");
     }
 
+    /**
+     * Make a REST call to the given url with the given method.
+     * 
+     * @param responseHandler
+     * @param httpMethod
+     * @param url
+     * @param content
+     *            content sent as part of the request
+     */
     public void doRestCall(final RestResponseHandler responseHandler, final Method httpMethod, final String url,
 	    String content) {
 

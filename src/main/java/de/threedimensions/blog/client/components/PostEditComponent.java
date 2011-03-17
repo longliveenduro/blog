@@ -1,4 +1,4 @@
-package de.threedimensions.blog.client;
+package de.threedimensions.blog.client.components;
 
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
@@ -7,6 +7,7 @@ import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.TextArea;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
+import de.threedimensions.blog.client.EditorSupport;
 import de.threedimensions.blog.client.event.EventHandler;
 import de.threedimensions.blog.client.event.PostCreatedEvent;
 import de.threedimensions.blog.client.rest.BlogRestClient;
