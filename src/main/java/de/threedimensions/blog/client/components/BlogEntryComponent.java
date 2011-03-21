@@ -50,5 +50,4 @@ public class BlogEntryComponent extends Composite implements EventHandler<BlogEn
 	blogPostContent.setText(blogEntryJs.getContent());
 	blogPostTime.setText(blogEntryJs.getCreationTime().toLocaleTimeString());
     }
-
 }

@@ -2,7 +2,9 @@ package de.threedimensions.blog.client;
 
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.core.client.JsArray;
+import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Label;
+import com.google.gwt.user.client.ui.PopupPanel;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.Tree;
 import com.google.gwt.user.client.ui.TreeItem;
@@ -10,6 +12,7 @@ import com.google.gwt.user.client.ui.TreeItem;
 import de.threedimensions.blog.client.components.BlogEntryComponent;
 import de.threedimensions.blog.client.components.Navbar;
 import de.threedimensions.blog.client.components.PostEditComponent;
+import de.threedimensions.blog.client.event.BlogEntryReceivedEvent;
 import de.threedimensions.blog.client.event.EventHandler;
 import de.threedimensions.blog.client.event.ListOfBlogEntryRefsReceivedEvent;
 import de.threedimensions.blog.client.model.BlogEntryRefJs;
@@ -26,6 +29,8 @@ public class Blog implements EntryPoint, ErrorHandler, EventHandler<ListOfBlogEn
     private Tree blogArchiveTree = new Tree();
     private BlogEntryComponent blogEntryComponent;
     private PostEditComponent postEditPanel = new PostEditComponent(this);
+    private PopupPanel popupPanel = new PopupPanel(false, true);
+    private Label popupPanelLabel = new Label();
 
     /**
      * Entry point method.
@@ -37,8 +42,19 @@ public class Blog implements EntryPoint, ErrorHandler, EventHandler<ListOfBlogEn
 	RootPanel.get("ArchiveList").add(blogArchiveTree);
 
 	blogEntryComponent = new BlogEntryComponent();
+	blogEntryComponent.setVisible(false);
 	getPanelForBlogEntry().add(blogEntryComponent);
-	blogRestClient.getPosts(this);
+
+	popupPanel.add(popupPanelLabel);
+	popupPanel.setPopupPositionAndShow(new PopupPanel.PositionCallback() {
+	    public void setPosition(int offsetWidth, int offsetHeight) {
+		int left = (Window.getClientWidth() - offsetWidth) / 3;
+		int top = (Window.getClientHeight() - offsetHeight) / 3;
+		popupPanel.setPopupPosition(left, top);
+	    }
+	});
+
+	fetchPosts();
     }
 
     private RootPanel getPanelForBlogEntry() {
@@ -60,8 +76,22 @@ public class Blog implements EntryPoint, ErrorHandler, EventHandler<ListOfBlogEn
 
 	BlogEntryRefJs blogEntryRefJs = event.getContent().get(0);
 	if (blogEntryRefJs != null) {
-	    blogRestClient.getBlogEntry(blogEntryRefJs.getUrl(), blogEntryComponent);
+	    final String blogPostUrl = blogEntryRefJs.getUrl();
+	    fetchPost(blogPostUrl);
 	}
+    }
+
+    private void fetchPost(final String blogPostUrl) {
+	popupPanelLabel.setText("Fetching post ...");
+	popupPanel.show();
+	blogRestClient.getBlogEntry(blogPostUrl, new EventHandler<BlogEntryReceivedEvent>() {
+	    @Override
+	    public void handleEvent(BlogEntryReceivedEvent event) {
+		blogEntryComponent.handleEvent(event);
+		popupPanel.hide();
+		blogEntryComponent.setVisible(true);
+	    }
+	});
     }
 
     /**
@@ -80,6 +110,12 @@ public class Blog implements EntryPoint, ErrorHandler, EventHandler<ListOfBlogEn
     public void showBlog(String url) {
 	getPanelForBlogEntry().remove(postEditPanel);
 	getPanelForBlogEntry().add(blogEntryComponent);
-	blogRestClient.getBlogEntry(url, blogEntryComponent);
+	fetchPost(url);
+    }
+
+    private void fetchPosts() {
+	popupPanelLabel.setText("Loading list of posts ...");
+	popupPanel.show();
+	blogRestClient.getPosts(this);
     }
 }
