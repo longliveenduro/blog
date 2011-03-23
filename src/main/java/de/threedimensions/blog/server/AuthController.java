@@ -1,6 +1,7 @@
 package de.threedimensions.blog.server;
 
 import java.util.List;
+import java.util.UUID;
 import java.util.logging.Logger;
 
 import javax.servlet.http.HttpServletRequest;
@@ -24,6 +25,7 @@ import org.openid4java.message.ax.FetchRequest;
 import org.openid4java.message.ax.FetchResponse;
 import org.openid4java.server.RealmVerifierFactory;
 import org.openid4java.util.HttpFetcherFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -32,21 +34,26 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
+import de.threedimensions.blog.server.dao.UserDao;
+import de.threedimensions.blog.server.model.User;
 import de.threedimensions.blog.server.openid.MyHttpCacheProvider;
 import de.threedimensions.blog.server.util.HttpCookies;
 import de.threedimensions.blog.shared.FrontendConstants;
 
 /**
- * @author chris
+ * Authentication with OpenId.
  * 
+ * @author chris
  */
 @Controller
 @RequestMapping("/auth")
 public class AuthController {
 
     private static final Logger LOG = Logger.getLogger(AuthController.class.getName());
-
     private static final String BLOG_BASE_URL = "http://threedimensionsblog.appspot.com";
+
+    @Autowired
+    private UserDao userDao;
 
     private ConsumerManager openIdConsumerManager;
 
@@ -73,6 +80,10 @@ public class AuthController {
 	HttpCookies.resetCookie(request, response, FrontendConstants.USER_ID_COOKIE_NAME);
 	HttpCookies.resetCookie(request, response, FrontendConstants.OPEN_ID_IDENTIFIER_COOKIE_NAME);
 
+	UUID uuidForUser = UUID.randomUUID();
+	userDao.save(new User(uuidForUser));
+	HttpCookies.setCookie(request, response, FrontendConstants.UUID_COOKIE_NAME, uuidForUser.toString(), true);
+
 	if (localSimulation) {
 	    setLoggedInCookies(request, response, new Identifier() {
 		@Override
@@ -80,7 +91,7 @@ public class AuthController {
 		    return "https://www.google.com/accounts/o8/id?id=AItOawlR6oC_UHENI63N7SOXmEkj2u0jQvXXXHH";
 		}
 	    }, "chris.wewerka@googlemail.com");
-	    return new RedirectView("/").getUrl();
+	    return new RedirectView("/Blog.html?gwt.codesvr=127.0.0.1:9997").getUrl();
 	}
 
 	try {

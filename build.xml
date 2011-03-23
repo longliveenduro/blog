@@ -46,7 +46,7 @@
 			<fileset dir="${java-srcdir}" excludes="**/*.java" />
 		</copy>
 		<taskdef name="datanucleusenhancer" classpathref="tools.class.path" classname="org.datanucleus.enhancer.tools.EnhancerTask" />
-		<datanucleusenhancer classpathref="tools.class.path" failonerror="true">
+		<datanucleusenhancer classpathref="tools.class.path" failonerror="true" api="JPA">
 			<fileset dir="war/WEB-INF/classes" includes="**/*.class" />
 		</datanucleusenhancer>
 	</target>
