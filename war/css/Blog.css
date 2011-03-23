@@ -127,7 +127,7 @@ a:hover {
 	-goog-ms-border-radius: 10px 10px 0 0;
 	border-radius: 10px 10px 0 0;
 	background: transparent
-		url(http://www.blogblog.com/1kt/transparent/black50.png) repeat scroll
+		url(/img/black50.png) repeat scroll
 		top left;
 	border-right: 1px solid transparent;
 }
@@ -148,7 +148,7 @@ a:hover {
 	position: relative;
 	z-index: 1;
 	background: transparent
-		url(http://www.blogblog.com/1kt/transparent/white80.png) repeat scroll
+		url(/img/white80.png) repeat scroll
 		bottom;
 	color: #336699;
 	-moz-box-shadow: 0 0 3px rgba(0, 0, 0, .15);
@@ -168,7 +168,7 @@ h2 {
 ----------------------------------------------- */
 .main-outer {
 	background: transparent
-		url(http://www.blogblog.com/1kt/transparent/white80.png) repeat scroll
+		url(/img/white80.png) repeat scroll
 		top left;
 	-moz-border-radius: 20px 20px 0 0;
 	-webkit-border-top-left-radius: 20px;
@@ -286,7 +286,7 @@ h3.post-title {
 .footer-outer {
 	color: #cccccc;
 	background: transparent
-		url(http://www.blogblog.com/1kt/transparent/black50.png) repeat scroll
+		url(/img/black50.png) repeat scroll
 		top left;
 	-moz-border-radius: 0 0 20px 20px;
 	-webkit-border-top-left-radius: 0;
