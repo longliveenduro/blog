@@ -1,3 +1,5 @@
+group = 'com.threedimensions'
+
 ant.importBuild 'build.xml'
 
 task appengineDeploy(dependsOn: war) << {
@@ -32,6 +34,8 @@ dependencies {
 	compile "com.google.inject:guice:2.0"
 	compile "com.googlecode.objectify:objectify:2.2.2"
 	compile "com.googlecode.objectify-appengine-spring:objectify-appengine-spring:1.1.1"
+	compile "javax.persistence:persistence-api:1.0"
+      
 	
 	compile ('org.openid4java:openid4java:0.9.6-SNAPSHOT') {
 		artifact {
@@ -45,6 +49,8 @@ dependencies {
 	
 	runtime "org.codehaus.jackson:jackson-core-lgpl:1.6.5"  
 	runtime "org.codehaus.jackson:jackson-mapper-lgpl:1.6.5"  
+	
+	// providedCompile "com.google.gwt:gwt-user:2.2.0"
 }
 
 repositories {
