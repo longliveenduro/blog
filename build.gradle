@@ -22,6 +22,9 @@ configurations {
 }
 
 dependencies {
+	compile "com.google.gwt:gwt-servlet:2.2.0"
+	compile "com.google.appengine:appengine-api-1.0-sdk:1.4.2"
+	compile "com.google.appengine:appengine-api-labs:1.4.2"
 	compile "org.springframework:spring-orm:3.0.5.RELEASE"
 	compile "org.springframework:spring-webmvc:3.0.5.RELEASE"
 	compile "com.google.guava:guava:r08"
