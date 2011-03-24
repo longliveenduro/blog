@@ -22,7 +22,7 @@
 		<pathelement location="${appengine_sdk}/lib/appengine-tools-api.jar" />
 		<fileset dir="${appengine_sdk}/lib/tools">
 			<include name="**/asm-*.jar" />
-			<include name="**/datanucleus-enhancer-*.jar" />
+			<!--<include name="**/datanucleus-enhancer-*.jar" />-->
 		</fileset>
 	</path>
 
@@ -45,10 +45,12 @@
 		<copy todir="war/WEB-INF/classes">
 			<fileset dir="${java-srcdir}" excludes="**/*.java" />
 		</copy>
+		<!--
 		<taskdef name="datanucleusenhancer" classpathref="tools.class.path" classname="org.datanucleus.enhancer.tools.EnhancerTask" />
 		<datanucleusenhancer classpathref="tools.class.path" failonerror="true" api="JPA">
 			<fileset dir="war/WEB-INF/classes" includes="**/*.class" />
 		</datanucleusenhancer>
+		-->
 	</target>
 
 	<target name="gwtc" depends="javac" description="GWT compile to JavaScript">

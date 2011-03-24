@@ -1,9 +1,10 @@
 package de.threedimensions.blog.server.dao;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+
+import com.googlecode.objectify.Objectify;
+import com.googlecode.objectify.ObjectifyFactory;
 
 import de.threedimensions.blog.server.model.BlogEntry;
 
@@ -14,11 +15,12 @@ import de.threedimensions.blog.server.model.BlogEntry;
 @Repository
 public class BlogEntryDao {
 
-    @PersistenceContext
-    private EntityManager em;
+    @Autowired
+    private ObjectifyFactory objectifyFactory;
 
     public BlogEntry loadBlogEntryById(Long postId) {
-	BlogEntry blogEntry = em.find(BlogEntry.class, postId);
+	Objectify objectify = objectifyFactory.begin();
+	BlogEntry blogEntry = objectify.find(BlogEntry.class, postId);
 	return blogEntry;
     }
 

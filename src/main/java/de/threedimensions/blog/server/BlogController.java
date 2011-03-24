@@ -12,8 +12,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import de.threedimensions.blog.server.dao.BlogEntryDao;
+import de.threedimensions.blog.server.dto.BlogEntryRef;
 import de.threedimensions.blog.server.model.BlogEntry;
-import de.threedimensions.blog.server.model.BlogEntryRef;
 
 @Controller
 @RequestMapping("/posts")

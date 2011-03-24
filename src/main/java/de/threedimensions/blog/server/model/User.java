@@ -13,7 +13,10 @@ import javax.persistence.Id;
 public class User {
 
     @Id
-    private final String uuid;
+    private String uuid;
+
+    private User() {
+    }
 
     /**
      * @param uuidForUser

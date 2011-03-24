@@ -1,4 +1,4 @@
-package de.threedimensions.blog.server.model;
+package de.threedimensions.blog.server.dto;
 
 /**
  * @author chris

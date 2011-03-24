@@ -25,5 +25,7 @@
 	<classpathentry kind="lib" path="war/WEB-INF/lib/spring-orm-3.0.5.RELEASE.jar"/>
 	<classpathentry kind="lib" path="war/WEB-INF/lib/spring-tx-3.0.5.RELEASE.jar"/>
 	<classpathentry kind="lib" path="war/WEB-INF/lib/spring-jdbc-3.0.5.RELEASE.jar"/>
+	<classpathentry kind="lib" path="war/WEB-INF/lib/objectify-2.2.2.jar"/>
+	<classpathentry kind="lib" path="war/WEB-INF/lib/objectify-appengine-spring-1.1.1.jar"/>
 	<classpathentry kind="output" path="war/WEB-INF/classes"/>
 </classpath>
