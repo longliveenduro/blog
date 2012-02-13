@@ -2,8 +2,10 @@
 <project name="Blog" default="build" basedir=".">
 	<!-- Configure path to GWT SDK -->
 	<!-- property name="gwt.sdk" location="/opt/gwt-sdk/gwt-2.2.0" / -->
+	<!-- property name="gwt.sdk" location="/opt/sts/plugins/com.google.gwt.eclipse.sdkbundle_2.4.0.v201201120043-rel-r36/gwt-2.4.0" / -->
 	<!-- Configure path to App Engine SDK -->
 	<!-- property name="appengine_sdk" location="/opt/appengine-sdk/1.4.2" / -->
+	<!-- property name="appengine_sdk" location="/opt/sts/plugins/com.google.appengine.eclipse.sdkbundle_1.6.1.v201201120043r36/appengine-java-sdk-1.6.1" / -->
 
 	<property name="java-srcdir" location="src/main/java" />
 	<property name="java-testsrcdir" location="src/test/java" />
