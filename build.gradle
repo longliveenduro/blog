@@ -21,34 +21,35 @@ libs << {
 configurations {
 	compile
 	runtime
+	all*.exclude group: 'com.google.code.guice', module: 'guice'
 }
 
 dependencies {
-	compile "com.google.gwt:gwt-servlet:2.2.0"
-	compile "com.google.appengine:appengine-api-1.0-sdk:1.4.2"
-	compile "com.google.appengine:appengine-api-labs:1.4.2"
-	compile "org.springframework:spring-orm:3.0.5.RELEASE"
-	compile "org.springframework:spring-webmvc:3.0.5.RELEASE"
-	compile "com.google.guava:guava:r08"
+	compile "com.google.gwt:gwt-servlet:2.4.0"
+	compile "com.google.appengine:appengine-api-1.0-sdk:1.6.1"
+	compile "com.google.appengine:appengine-api-labs:1.6.1"
+	compile "org.springframework:spring-orm:3.1.0.RELEASE"
+	compile "org.springframework:spring-webmvc:3.1.0.RELEASE"
+	compile "com.google.guava:guava:11.0.1"
 	compile "joda-time:joda-time:1.6.2"
 	compile "com.google.inject:guice:2.0"
-	compile "com.googlecode.objectify:objectify:2.2.2"
+	compile "com.googlecode.objectify:objectify:3.1"
 	compile "com.googlecode.objectify-appengine-spring:objectify-appengine-spring:1.1.1"
 	compile "javax.persistence:persistence-api:1.0"
       
 	
-	compile ('org.openid4java:openid4java:0.9.6-SNAPSHOT') {
+	compile ('org.openid4java:openid4java:0.9.6') {
 		artifact {
 		    name = 'openid4java'
 		    extension = 'jar'
 		    type = 'jar'
-		    url = 'https://oss.sonatype.org/content/repositories/openid4java-snapshots/org/openid4java/openid4java-nodeps/0.9.6-SNAPSHOT/openid4java-nodeps-0.9.6-20110105.140426-5.jar'
+		    url = 'https://oss.sonatype.org/content/repositories/openid4java/org/openid4java/openid4java-nodeps/0.9.6/openid4java-nodeps-0.9.6.jar'
 		}
 	}
 	compile "org.apache.httpcomponents:httpclient:4.0" // needed for OpenId Yadis Resolver
 	
-	runtime "org.codehaus.jackson:jackson-core-lgpl:1.6.5"  
-	runtime "org.codehaus.jackson:jackson-mapper-lgpl:1.6.5"  
+	runtime "org.codehaus.jackson:jackson-core-lgpl:1.9.4"  
+	runtime "org.codehaus.jackson:jackson-mapper-lgpl:1.9.4"  
 	
 	// providedCompile "com.google.gwt:gwt-user:2.2.0"
 }

@@ -2,30 +2,30 @@
 <classpath>
 	<classpathentry kind="src" path="src/main/java"/>
 	<classpathentry kind="src" output="test-classes" path="src/test/java"/>
-	<classpathentry kind="con" path="com.google.appengine.eclipse.core.GAE_CONTAINER"/>
 	<classpathentry kind="con" path="com.google.gwt.eclipse.core.GWT_CONTAINER"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-	<classpathentry kind="lib" path="war/WEB-INF/lib/spring-aop-3.0.5.RELEASE.jar"/>
-	<classpathentry kind="lib" path="war/WEB-INF/lib/spring-asm-3.0.5.RELEASE.jar"/>
-	<classpathentry kind="lib" path="war/WEB-INF/lib/spring-beans-3.0.5.RELEASE.jar"/>
-	<classpathentry kind="lib" path="war/WEB-INF/lib/spring-context-3.0.5.RELEASE.jar"/>
-	<classpathentry kind="lib" path="war/WEB-INF/lib/spring-context-support-3.0.5.RELEASE.jar"/>
-	<classpathentry kind="lib" path="war/WEB-INF/lib/spring-core-3.0.5.RELEASE.jar"/>
-	<classpathentry kind="lib" path="war/WEB-INF/lib/spring-expression-3.0.5.RELEASE.jar"/>
-	<classpathentry kind="lib" path="war/WEB-INF/lib/spring-web-3.0.5.RELEASE.jar"/>
-	<classpathentry kind="lib" path="war/WEB-INF/lib/spring-webmvc-3.0.5.RELEASE.jar"/>
+	<classpathentry kind="lib" path="war/WEB-INF/lib/spring-aop-3.1.0.RELEASE.jar"/>
+	<classpathentry kind="lib" path="war/WEB-INF/lib/spring-asm-3.1.0.RELEASE.jar"/>
+	<classpathentry kind="lib" path="war/WEB-INF/lib/spring-beans-3.1.0.RELEASE.jar"/>
+	<classpathentry kind="lib" path="war/WEB-INF/lib/spring-context-3.1.0.RELEASE.jar"/>
+	<classpathentry kind="lib" path="war/WEB-INF/lib/spring-context-support-3.1.0.RELEASE.jar"/>
+	<classpathentry kind="lib" path="war/WEB-INF/lib/spring-core-3.1.0.RELEASE.jar"/>
+	<classpathentry kind="lib" path="war/WEB-INF/lib/spring-expression-3.1.0.RELEASE.jar"/>
+	<classpathentry kind="lib" path="war/WEB-INF/lib/spring-web-3.1.0.RELEASE.jar"/>
+	<classpathentry kind="lib" path="war/WEB-INF/lib/spring-webmvc-3.1.0.RELEASE.jar"/>
 	<classpathentry kind="lib" path="war/WEB-INF/lib/aopalliance-1.0.jar"/>
 	<classpathentry kind="lib" path="war/WEB-INF/lib/commons-logging-1.1.1.jar"/>
-	<classpathentry kind="lib" path="war/WEB-INF/lib/jackson-core-lgpl-1.6.5.jar"/>
-	<classpathentry kind="lib" path="war/WEB-INF/lib/jackson-mapper-lgpl-1.6.5.jar"/>
-	<classpathentry kind="lib" path="war/WEB-INF/lib/openid4java-0.9.6-SNAPSHOT.jar"/>
+	<classpathentry kind="lib" path="war/WEB-INF/lib/jackson-core-lgpl-1.9.4.jar"/>
+	<classpathentry kind="lib" path="war/WEB-INF/lib/jackson-mapper-lgpl-1.9.4.jar"/>
+	<classpathentry kind="lib" path="war/WEB-INF/lib/openid4java-nodeps-0.9.6.jar"/>
 	<classpathentry kind="lib" path="war/WEB-INF/lib/guava-r08.jar"/>
 	<classpathentry kind="lib" path="war/WEB-INF/lib/guice-2.0.jar"/>
 	<classpathentry kind="lib" path="war/WEB-INF/lib/joda-time-1.6.2.jar"/>
-	<classpathentry kind="lib" path="war/WEB-INF/lib/spring-orm-3.0.5.RELEASE.jar"/>
-	<classpathentry kind="lib" path="war/WEB-INF/lib/spring-tx-3.0.5.RELEASE.jar"/>
-	<classpathentry kind="lib" path="war/WEB-INF/lib/spring-jdbc-3.0.5.RELEASE.jar"/>
-	<classpathentry kind="lib" path="war/WEB-INF/lib/objectify-2.2.2.jar"/>
+	<classpathentry kind="lib" path="war/WEB-INF/lib/spring-orm-3.1.0.RELEASE.jar"/>
+	<classpathentry kind="lib" path="war/WEB-INF/lib/spring-tx-3.1.0.RELEASE.jar"/>
+	<classpathentry kind="lib" path="war/WEB-INF/lib/spring-jdbc-3.1.0.RELEASE.jar"/>
+	<classpathentry kind="lib" path="war/WEB-INF/lib/objectify-3.1.jar"/>
 	<classpathentry kind="lib" path="war/WEB-INF/lib/objectify-appengine-spring-1.1.1.jar"/>
+	<classpathentry kind="con" path="com.google.appengine.eclipse.core.GAE_CONTAINER"/>
 	<classpathentry kind="output" path="war/WEB-INF/classes"/>
 </classpath>
