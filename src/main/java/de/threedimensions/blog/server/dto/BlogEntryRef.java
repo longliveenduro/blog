@@ -1,26 +1,37 @@
 package de.threedimensions.blog.server.dto;
 
+import java.util.UUID;
+
 /**
  * @author chris
  * 
  */
 public class BlogEntryRef {
-    private final Long id;
+    private final UUID id;
+    private final String title;
     private final String url;
 
     /**
      * @param id
      * @param url
      */
-    public BlogEntryRef(Long id, String url) {
+    public BlogEntryRef(UUID id, String title, String url) {
 	this.id = id;
+	this.title = title;
 	this.url = url;
+    }
+
+    /**
+     * @return the title
+     */
+    public String getTitle() {
+	return title;
     }
 
     /**
      * @return the id
      */
-    public Long getId() {
+    public UUID getId() {
 	return id;
     }
 

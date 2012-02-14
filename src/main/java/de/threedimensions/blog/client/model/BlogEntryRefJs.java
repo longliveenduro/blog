@@ -11,7 +11,7 @@ public class BlogEntryRefJs extends JavaScriptObject {
     protected BlogEntryRefJs() {
     }
 
-    public final native int getId() /*-{ return this.id; }-*/;
+    public final native String getId() /*-{ return this.id; }-*/;
 
     public final native String getUrl() /*-{ return this.url; }-*/;
 }

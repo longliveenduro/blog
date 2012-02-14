@@ -5,3 +5,9 @@ test-classes/
 war/blog/
 .gradle
 Blog.war
+gwt-unitCache/
+war/WEB-INF/appengine-generated/
+war/genfilesforspeedtracer/
+war/symbolmanifest.json
+war/symbolsforspeedtracer/
+

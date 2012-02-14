@@ -1,5 +1,7 @@
 package de.threedimensions.blog.server.model;
 
+import java.util.UUID;
+
 import javax.persistence.Id;
 
 import org.joda.time.DateTime;
@@ -9,8 +11,9 @@ import org.joda.time.DateTime;
  * 
  */
 public class BlogEntry {
+
     @Id
-    private Long id;
+    private UUID id;
 
     private String heading;
     private String content;
@@ -24,7 +27,7 @@ public class BlogEntry {
      * @param content
      * @param creationTime
      */
-    public BlogEntry(String heading, String content, DateTime creationTime) {
+    public BlogEntry(UUID id, String heading, String content, DateTime creationTime) {
 	this.heading = heading;
 	this.content = content;
 	this.creationTime = creationTime;
@@ -78,7 +81,7 @@ public class BlogEntry {
     /**
      * @return the id
      */
-    public Long getId() {
+    public UUID getId() {
 	return id;
     }
 
@@ -86,8 +89,9 @@ public class BlogEntry {
      * @param id
      *            the id to set
      */
-    public void setId(Long id) {
+    public void setId(UUID id) {
 	this.id = id;
     }
+
 
 }
